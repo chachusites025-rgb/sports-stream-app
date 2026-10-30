@@ -167,16 +167,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSportsRow() {
-    final sports = [
-      {'id': 'ALL', 'label': 'Football', 'icon': '⚽'},
-      {'id': 'LALIGA', 'label': 'LaLiga', 'icon': '⚽'},
-      {'id': 'FRENCH-LIGUE-1', 'label': 'Ligue 1', 'icon': '⚽'},
-      {'id': 'BUNDESLIGA', 'label': 'Bundesliga', 'icon': '⚽'},
-      {'id': 'NBA', 'label': 'Basketball', 'icon': '🏀'},
-      {'id': 'MOTORSPORTS', 'label': 'Racing', 'icon': '🏎️'},
-      {'id': 'NHL', 'label': 'Hockey', 'icon': '🏒'},
-      {'id': 'CFB', 'label': 'Football', 'icon': '🏈'},
-    ];
+    final sportsSet = <String>{};
+    for (final m in _allMatches) {
+      if (m.sport.isNotEmpty) sportsSet.add(m.sport.toUpperCase());
+    }
+    final sportsList = ['ALL', ...sportsSet.toList()..sort()];
+
+    final iconMap = {
+      'ALL': '🏆',
+      'LALIGA': '⚽',
+      'FRENCH-LIGUE-1': '⚽',
+      'BUNDESLIGA': '⚽',
+      'BRAZIL-SERIE-A': '⚽',
+      'NBA': '🏀',
+      'MOTORSPORTS': '🏎️',
+      'NHL': '🏒',
+      'CFB': '🏈',
+    };
 
     return Container(
       height: 48,
@@ -184,25 +191,33 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: sports.length,
+        itemCount: sportsList.length,
         itemBuilder: (context, i) {
-          final item = sports[i];
-          final isSelected = item['id'] == _selectedCategory;
+          final s = sportsList[i];
+          final isSelected = s == _selectedCategory;
+          final icon = iconMap[s] ?? '⚡';
+          final label = s == 'ALL' ? 'All Sports' : s.replaceAll('-', ' ');
 
           if (isSelected) {
             return Container(
               margin: const EdgeInsets.only(right: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
                 color: AppTheme.accentRed,
                 borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppTheme.accentRed.withOpacity(0.4),
+                    blurRadius: 10,
+                  ),
+                ],
               ),
               child: Row(
                 children: [
-                  Text(item['icon']!, style: const TextStyle(fontSize: 16)),
+                  Text(icon, style: const TextStyle(fontSize: 16)),
                   const SizedBox(width: 8),
                   Text(
-                    item['label']!,
+                    label,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 13,
@@ -217,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return GestureDetector(
             onTap: () {
               setState(() {
-                _selectedCategory = item['id']!;
+                _selectedCategory = s;
                 _applyFilters();
               });
             },
@@ -231,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 border: Border.all(color: AppTheme.darkCardBorder),
               ),
               child: Center(
-                child: Text(item['icon']!, style: const TextStyle(fontSize: 16)),
+                child: Text(icon, style: const TextStyle(fontSize: 16)),
               ),
             ),
           );
@@ -241,18 +256,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildFeaturedCard() {
-    final match = _allMatches.isNotEmpty ? _allMatches[0] : null;
+    if (_allMatches.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
-    final team1 = match?.team1 ?? 'Barcelona';
-    final team2 = match?.team2 ?? 'Chelsea';
-    final team1Logo = match?.team1Logo ?? 'https://a.espncdn.com/i/teamlogos/soccer/500/83.png';
-    final team2Logo = match?.team2Logo ?? 'https://a.espncdn.com/i/teamlogos/soccer/500/363.png';
-    final league = match?.league ?? 'UFFA League';
-    final timeStr = match?.time ?? '2 : 3';
+    final match = _allMatches[0];
 
     return GestureDetector(
       onTap: () {
-        if (match != null && match.hasStream) {
+        if (match.hasStream) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => PlayerScreen(match: match)),
@@ -276,10 +288,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   children: [
                     Text(
-                      league,
+                      match.league,
                       style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
                     ),
-                    const Text('Group A', style: TextStyle(color: AppTheme.textSecondary, fontSize: 10)),
+                    Text(
+                      match.sport.replaceAll('-', ' '),
+                      style: const TextStyle(color: AppTheme.textSecondary, fontSize: 10),
+                    ),
                   ],
                 ),
                 const Text('Live', style: TextStyle(color: AppTheme.accentPink, fontSize: 12, fontWeight: FontWeight.bold)),
@@ -294,13 +309,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       CachedNetworkImage(
-                        imageUrl: team1Logo,
+                        imageUrl: match.team1Logo,
                         width: 50,
                         height: 50,
                         errorWidget: (_, __, ___) => const Icon(Icons.sports_soccer, color: Colors.white, size: 38),
                       ),
                       const SizedBox(height: 6),
-                      Text(team1, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13), maxLines: 1),
+                      Text(match.team1, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13), maxLines: 1),
                       const Text('Home', style: TextStyle(color: AppTheme.textSecondary, fontSize: 11)),
                     ],
                   ),
@@ -309,7 +324,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Center Score
                 Column(
                   children: [
-                    Text(timeStr, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 22)),
+                    Text(match.time.isNotEmpty ? match.time : 'LIVE',
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20)),
                     const SizedBox(height: 4),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -334,13 +350,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       CachedNetworkImage(
-                        imageUrl: team2Logo,
+                        imageUrl: match.team2Logo,
                         width: 50,
                         height: 50,
                         errorWidget: (_, __, ___) => const Icon(Icons.sports_soccer, color: Colors.white, size: 38),
                       ),
                       const SizedBox(height: 6),
-                      Text(team2, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13), maxLines: 1),
+                      Text(match.team2, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13), maxLines: 1),
                       const Text('Away', style: TextStyle(color: AppTheme.textSecondary, fontSize: 11)),
                     ],
                   ),
@@ -366,12 +382,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(child: _buildTopHeader()),
               SliverToBoxAdapter(child: _buildSportsRow()),
               SliverToBoxAdapter(child: _buildFeaturedCard()),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(18, 16, 18, 8),
+                  padding: const EdgeInsets.fromLTRB(18, 16, 18, 8),
                   child: Text(
-                    'UEFA & Live Matches',
-                    style: TextStyle(
+                    _selectedCategory == 'ALL' ? 'Live Matches & Streams' : _selectedCategory.replaceAll('-', ' '),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
