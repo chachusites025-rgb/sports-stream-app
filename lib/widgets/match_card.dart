@@ -41,7 +41,7 @@ class MatchCard extends StatelessWidget {
       );
     }
 
-    // Logo with circular dedicated background as requested
+    // Logo with circular dedicated background (NO BORDER as requested)
     return Container(
       width: 40,
       height: 40,
@@ -49,7 +49,6 @@ class MatchCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.08),
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white.withOpacity(0.12)),
       ),
       child: imageContent,
     );
@@ -65,7 +64,6 @@ class MatchCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppTheme.darkCard, // Solid background
         borderRadius: BorderRadius.circular(12), // Exact 12px radius
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.4),
@@ -102,7 +100,6 @@ class MatchCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppTheme.brandGreenSubtle,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppTheme.brandGreen.withOpacity(0.3)),
                       ),
                       child: Text(
                         '⏱ $timeStr',

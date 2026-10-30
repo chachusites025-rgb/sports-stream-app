@@ -40,7 +40,7 @@ class AppTheme {
         elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: darkCardBorder, width: 1),
+          side: BorderSide.none,
         ),
       ),
     );

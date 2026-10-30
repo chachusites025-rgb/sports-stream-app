@@ -133,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               color: AppTheme.brandGreenSubtle,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.brandGreen.withOpacity(0.3)),
             ),
             child: const Row(
               mainAxisSize: MainAxisSize.min,
@@ -207,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     label,
                     style: const TextStyle(
-                      color: Colors.black, // High contrast black text on green
+                      color: Colors.white, // Green pill with WHITE text as requested
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
@@ -230,7 +229,6 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 color: AppTheme.darkCard,
                 borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: Colors.white.withOpacity(0.08)),
               ),
               child: Row(
                 children: [
@@ -260,7 +258,6 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           color: AppTheme.darkSurface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white.withOpacity(0.08)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.35),

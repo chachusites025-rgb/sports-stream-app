@@ -12,11 +12,10 @@
       --bg: #090e15;
       --bg-surface: #0f1722;
       --card-bg: #141e2b;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover: #192637;
+      --card-hover: #1a2738;
       --brand-green: #00e676;
       --brand-green-glow: rgba(0, 230, 118, 0.35);
-      --brand-green-subtle: rgba(0, 230, 118, 0.12);
+      --brand-green-subtle: rgba(0, 230, 118, 0.14);
       --text: #ffffff;
       --text-muted: #8fa3b8;
       --text-dim: #5a6e82;
@@ -56,7 +55,7 @@
 
     .toolbar-pill {
       background: var(--bg-surface);
-      border: 1px solid var(--card-border);
+      border: none;
       padding: 6px 14px;
       border-radius: 20px;
       cursor: pointer;
@@ -68,7 +67,7 @@
       transition: all 0.2s;
     }
     .toolbar-pill:hover {
-      border-color: var(--brand-green);
+      background: var(--card-bg);
       color: var(--brand-green);
     }
 
@@ -159,7 +158,7 @@
     }
     .screen-scroll::-webkit-scrollbar { display: none; }
 
-    /* Top App Header: Clean Welcome Futbol Libre (Chat & Bell icons removed as requested) */
+    /* Top App Header: Welcome Futbol Libre */
     .app-header {
       display: flex;
       align-items: center;
@@ -179,7 +178,7 @@
       font-weight: 600;
       color: var(--brand-green);
       letter-spacing: 0.3px;
-      text-transform: none; /* Written as 'Welcome' */
+      text-transform: none; /* 'Welcome' in Title Case */
     }
 
     .app-brand-title {
@@ -195,7 +194,7 @@
       align-items: center;
       gap: 6px;
       background: var(--brand-green-subtle);
-      border: 1px solid rgba(0, 230, 118, 0.3);
+      border: none;
       padding: 5px 12px;
       border-radius: 20px;
       font-size: 11px;
@@ -235,7 +234,8 @@
       align-items: center;
       gap: 8px;
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: none !important;
+      outline: none !important;
       padding: 8px 16px;
       border-radius: 25px;
       font-size: 13px;
@@ -246,11 +246,23 @@
       transition: all 0.2s;
     }
 
-    .sport-pill.active {
-      background: var(--brand-green);
-      border-color: var(--brand-green);
-      color: #000000;
-      font-weight: 700;
+    .sport-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: none !important;
+      outline: none !important;
+    }
+
+    /* Green with pure WHITE text as requested */
+    .sport-pill.active,
+    .sport-pill.active *,
+    .sport-pill.active:hover,
+    .sport-pill.active:hover * {
+      background: var(--brand-green) !important;
+      border: none !important;
+      outline: none !important;
+      color: #ffffff !important; /* Green ke sath WHITE text */
+      font-weight: 700 !important;
       box-shadow: 0 4px 16px var(--brand-green-glow);
     }
 
@@ -261,11 +273,11 @@
       justify-content: center;
     }
 
-    /* Search Box: White & Green Futbol Libre Styling (Stationary, Clean Shadow) */
+    /* Search Box: Border removed, soft stationary shadow */
     .search-bar-box {
       width: 100%;
       background: var(--bg-surface);
-      border: 1px solid var(--card-border);
+      border: none; /* No border */
       border-radius: 12px;
       padding: 12px 16px;
       display: flex;
@@ -273,14 +285,14 @@
       gap: 12px;
       margin-bottom: 16px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
       transform: none !important;
     }
 
     .search-bar-box:focus-within {
       background: var(--card-bg);
-      border-color: var(--brand-green);
-      box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.25), 0 8px 24px rgba(0, 0, 0, 0.7);
+      border: none; /* No border on focus */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
       transform: none !important;
     }
 
@@ -318,11 +330,12 @@
       width: 100%;
     }
 
-    /* Match Item Card: Solid BG + 12px Radius + Clean Top League/Time + Logo BG */
+    /* Match Item Card: NO BORDER + 12px Radius + Solid BG */
     .match-item-card {
       width: 100%;
       background: var(--card-bg); /* Solid background */
-      border: 1px solid var(--card-border);
+      border: none !important; /* Border removed as requested */
+      outline: none !important;
       border-radius: 12px; /* Exact 12px radius */
       padding: 14px 16px;
       cursor: pointer;
@@ -332,14 +345,18 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.4);
     }
 
-    .match-item-card:hover {
-      background: var(--card-hover);
-      border-color: rgba(0, 230, 118, 0.4);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 16px rgba(0, 230, 118, 0.1);
+    /* On hover: only subtle background/elevation, NO BORDER */
+    .match-item-card:hover,
+    .match-item-card:focus,
+    .match-item-card:active {
+      background: var(--card-hover) !important;
+      border: none !important; /* No border on hover as requested */
+      outline: none !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6) !important;
       transform: translateY(-2px);
     }
 
-    /* Top Row of Card: League Tag + Time Pill */
+    /* Top Row: League Tag + Time Pill (No borders) */
     .card-top-header-row {
       display: flex;
       align-items: center;
@@ -357,7 +374,7 @@
 
     .time-chip-badge {
       background: var(--brand-green-subtle);
-      border: 1px solid rgba(0, 230, 118, 0.25);
+      border: none; /* No border */
       color: var(--brand-green);
       padding: 3px 10px;
       border-radius: 12px;
@@ -373,7 +390,7 @@
       width: 100%;
     }
 
-    /* Team Box with Logo Background */
+    /* Team Box */
     .team-left-box {
       flex: 1;
       display: flex;
@@ -382,13 +399,14 @@
       min-width: 0;
     }
 
-    /* Logo Circular Background (as requested: "log ka bg bi ho ok") */
+    /* Logo Background with NO BORDER as requested */
     .team-logo-wrapper {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08); /* Dedicated logo background */
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08); /* Clean circular bg */
+      border: none !important; /* No border on logo bg */
+      outline: none !important;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -417,7 +435,7 @@
       line-height: 1.25;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; /* e.g. Paris Saint-... */
+      text-overflow: ellipsis; /* Single line with ellipsis */
       display: block;
     }
 
@@ -427,7 +445,7 @@
       margin-top: 2px;
     }
 
-    /* Center VS badge */
+    /* Center VS badge: No border */
     .center-vs-box {
       padding: 0 12px;
       display: flex;
@@ -441,7 +459,7 @@
       height: 26px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
+      border: none; /* No border */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -494,7 +512,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px;
-      border-bottom: 1px solid var(--card-border);
+      border: none;
       background: var(--bg-surface);
     }
 
@@ -510,7 +528,7 @@
 
     .modal-close-btn {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: none;
       color: #fff;
       width: 32px;
       height: 32px;
@@ -552,7 +570,7 @@
 
     .modal-btn {
       background: var(--brand-green);
-      color: #000000;
+      color: #ffffff; /* White text */
       border: none;
       padding: 12px;
       border-radius: 12px;
@@ -568,7 +586,7 @@
 
     .modal-btn.secondary {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: none;
       color: var(--text);
       box-shadow: none;
     }
@@ -608,7 +626,7 @@
     <!-- Scrollable Content -->
     <div class="screen-scroll">
       
-      <!-- Top App Header: Welcome Futbol Libre (Chat & Bell icons removed as requested) -->
+      <!-- Top App Header: Welcome Futbol Libre -->
       <div class="app-header">
         <div class="brand-title-box">
           <div class="app-welcome-sub">Welcome</div>
@@ -620,7 +638,7 @@
         </div>
       </div>
 
-      <!-- Sports Category Pills (White & Green Theme) -->
+      <!-- Sports Category Pills (Green background with White Text) -->
       <div class="sports-row" id="sportsSelector">
         <div class="sport-pill active" onclick="filterSport('ALL')">
           <span class="sport-icon">⚽</span>
@@ -628,7 +646,7 @@
         </div>
       </div>
 
-      <!-- Search Box with clean stationary shadow (White & Green) -->
+      <!-- Search Box with clean stationary shadow (No border) -->
       <div class="search-bar-box">
         <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
@@ -637,7 +655,7 @@
         <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
       </div>
 
-      <!-- Match Cards List (12px Radius + Solid BG + Logo Background + White & Green) -->
+      <!-- Match Cards List (NO BORDERS, 12px Radius, Solid BG, Logo BG with No Border) -->
       <div class="matches-list" id="matchesListContainer">
         <div class="loading-pulse">Connecting to live API schedule...</div>
       </div>
@@ -654,7 +672,7 @@
         <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-details">
-        <div style="background: var(--card-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--card-border);">
+        <div style="background: var(--card-bg); padding: 14px; border-radius: 12px;">
           <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
           <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
         </div>
@@ -793,14 +811,14 @@
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
             
-            <!-- Top Row: League Tag on Left, Time Badge on Right -->
+            <!-- Top Row: League Tag on Left, Time Badge on Right (No borders) -->
             <div class="card-top-header-row">
               <span class="league-chip">${leagueName}</span>
               <span class="time-chip-badge">⏱ ${timeDisplay}</span>
             </div>
             
             <div class="match-card-main-content">
-              <!-- Left Team: Logo with circular background + Single line name with ellipsis -->
+              <!-- Left Team: Logo with circular background (NO BORDER) + Single line name with ellipsis -->
               <div class="team-left-box">
                 <div class="team-logo-wrapper">
                   <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
@@ -811,12 +829,12 @@
                 </div>
               </div>
 
-              <!-- Center VS -->
+              <!-- Center VS (No border) -->
               <div class="center-vs-box">
                 <div class="center-vs-text">VS</div>
               </div>
 
-              <!-- Right Team: Single line name with ellipsis + Logo with circular background -->
+              <!-- Right Team: Single line name with ellipsis + Logo with circular background (NO BORDER) -->
               <div class="team-right-box">
                 <div class="team-text-block">
                   <div class="team-name-text" title="${m.Team2}">${m.Team2}</div>
