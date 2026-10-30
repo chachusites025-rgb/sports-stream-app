@@ -90,3 +90,4 @@ class MatchModel {
 
   bool get hasStream => iframeUrl.isNotEmpty && iframeUrl.startsWith('http');
 }
+

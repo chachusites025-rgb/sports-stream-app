@@ -54,3 +54,4 @@ class ApiService {
     return ['ALL', ...list];
   }
 }
+

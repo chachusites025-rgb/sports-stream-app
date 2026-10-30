@@ -63,3 +63,4 @@ myapp/
 │       └── player_screen.dart     # Web stream player with fullscreen mode
 └── pubspec.yaml                   # Flutter dependencies & app metadata
 ```
+
