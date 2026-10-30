@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sports Streaming Live App</title>
+  <title>Futbol Libre - Live Sports Streaming</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,8 +11,9 @@
     :root {
       --bg: #140e13;
       --bg-dark: #0e0a0d;
-      --card-bg: #23191f;
-      --card-notch: #160f14;
+      --card-bg: transparent; /* Background removed as requested */
+      --card-border-dashed: rgba(255, 255, 255, 0.2);
+      --card-notch: #1c141a;
       --accent-red: #e12b4c;
       --accent-pink: #ff3b5c;
       --live-green: #22c55e;
@@ -147,7 +148,7 @@
       font-size: 12px;
     }
 
-    /* Scrollable App Screen Content: Wider with less side padding */
+    /* Scrollable App Screen Content */
     .screen-scroll {
       flex: 1;
       overflow-y: auto;
@@ -157,51 +158,35 @@
     }
     .screen-scroll::-webkit-scrollbar { display: none; }
 
-    /* Header: User greeting + Chat & Notification Icons */
+    /* Top App Header: Welcome Futbol Libre */
     .app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 4px;
+      margin-top: 6px;
       margin-bottom: 18px;
       padding: 0 4px;
     }
 
-    .profile-info {
+    .brand-title-box {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
     }
 
-    .avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #d92949, #ffa502);
-      padding: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .greeting-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-    }
-
-    .user-name {
+    .app-welcome-sub {
       font-size: 12px;
+      font-weight: 600;
       color: var(--text-muted);
-      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .app-brand-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
     }
 
     .header-actions {
@@ -215,7 +200,7 @@
       height: 40px;
       border-radius: 50%;
       background: #23191f;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -283,26 +268,29 @@
       justify-content: center;
     }
 
-    /* Search Box with Premium Luxury Glow Shadow on Focus */
+    /* Search Box: Smooth stationary focus (no shake/jump, clean luxury shadow) */
     .search-bar-box {
       width: 100%;
       background: #1c1419;
-      border: 1px solid transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 12px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      /* Zero transform or margin shifts to prevent any shaking/jumping */
+      transform: none !important;
     }
 
     .search-bar-box:focus-within {
-      background: #241a21;
-      border-color: rgba(225, 43, 76, 0.6);
-      box-shadow: 0 0 0 3px rgba(225, 43, 76, 0.25), 0 8px 24px rgba(225, 43, 76, 0.2), 0 2px 6px rgba(0,0,0,0.4);
-      transform: translateY(-1px);
+      background: #22181f;
+      border-color: rgba(255, 255, 255, 0.25);
+      /* Clean luxury dark shadow without bright distracting colors */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
+      transform: none !important;
     }
 
     .search-svg-icon {
@@ -314,7 +302,7 @@
     }
 
     .search-bar-box:focus-within .search-svg-icon {
-      stroke: var(--accent-red);
+      stroke: #ffffff;
     }
 
     .search-bar-box input {
@@ -335,28 +323,27 @@
     .matches-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
     }
 
-    /* Match Item Card: Wider width, exact 8px radius, no border */
+    /* Match Item Card: Background Transparent + Dashed Border + 8px Radius */
     .match-item-card {
       width: 100%;
-      background: var(--card-bg);
-      border: none;
-      border-radius: 8px; /* Exact 8px radius as requested */
+      background: transparent; /* Background removed as requested */
+      border: 1.5px dashed rgba(255, 255, 255, 0.18); /* Dashed border */
+      border-radius: 8px; /* 8px radius */
       padding: 0 14px 14px 14px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: all 0.2s ease;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
     }
 
     .match-item-card:hover {
-      transform: translateY(-2px);
-      background: #2a1f26;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.65);
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
     }
 
     /* Top Notch Header: Time sits in a smooth recessed tab */
@@ -368,14 +355,15 @@
 
     .card-top-notch {
       background: var(--card-notch);
-      padding: 5px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: none;
+      padding: 4px 16px;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       font-size: 11px;
       font-weight: 700;
       color: #fff;
       letter-spacing: 0.5px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .match-card-main-content {
@@ -385,13 +373,13 @@
       width: 100%;
     }
 
-    /* Left Team: Logo on left, Team Name with single-line ellipsis (e.g. Paris Saint-...) */
+    /* Left Team: Logo + Single line name with ellipsis */
     .team-left-box {
       flex: 1;
       display: flex;
       align-items: center;
       gap: 10px;
-      min-width: 0; /* allows text-overflow ellipsis */
+      min-width: 0; /* Prevents push overflow */
     }
 
     .team-badge-logo {
@@ -428,7 +416,7 @@
 
     /* Center VS badge */
     .center-vs-box {
-      padding: 0 10px;
+      padding: 0 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -442,7 +430,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* Right Team: Team Name with single-line ellipsis on left, Logo on far right */
+    /* Right Team: Single line name with ellipsis on left, Logo on far right */
     .team-right-box {
       flex: 1;
       display: flex;
@@ -450,7 +438,7 @@
       justify-content: flex-end;
       gap: 10px;
       text-align: right;
-      min-width: 0; /* allows text-overflow ellipsis */
+      min-width: 0; /* Prevents push overflow */
     }
 
     .team-right-box .team-text-block {
@@ -487,7 +475,7 @@
       justify-content: space-between;
       padding: 16px;
       border-bottom: 1px solid #33272e;
-      background: var(--card-bg);
+      background: #1c141a;
     }
 
     .modal-match-title {
@@ -592,16 +580,11 @@
     <!-- Scrollable Content -->
     <div class="screen-scroll">
       
-      <!-- Top App Header -->
+      <!-- Top App Header: Welcome Futbol Libre -->
       <div class="app-header">
-        <div class="profile-info">
-          <div class="avatar">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Profile">
-          </div>
-          <div>
-            <div class="greeting-text">Good Morning</div>
-            <div class="user-name">Faizan Ali</div>
-          </div>
+        <div class="brand-title-box">
+          <div class="app-welcome-sub">Welcome</div>
+          <div class="app-brand-title">Futbol Libre</div>
         </div>
         <div class="header-actions">
           <div class="icon-btn" title="Messages">
@@ -622,7 +605,7 @@
         </div>
       </div>
 
-      <!-- Search Box with Premium Glow Shadow and clean SVG Icon -->
+      <!-- Search Box with clean stationary shadow (no jump/shake) -->
       <div class="search-bar-box">
         <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
@@ -631,7 +614,7 @@
         <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
       </div>
 
-      <!-- Match Cards List (Wider width, 8px radius, no border, single line names with ellipsis) -->
+      <!-- Match Cards List (Background Transparent + Dashed Border + 8px Radius) -->
       <div class="matches-list" id="matchesListContainer">
         <div class="loading-pulse">Connecting to live API schedule...</div>
       </div>
@@ -648,7 +631,7 @@
         <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-details">
-        <div style="background: var(--card-bg); padding: 14px; border-radius: 8px;">
+        <div style="background: #1c141a; padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
           <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
           <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
         </div>

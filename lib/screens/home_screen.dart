@@ -99,49 +99,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildTopHeader() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [AppTheme.accentRed, Color(0xFFFFA502)],
-                  ),
-                ),
-                padding: const EdgeInsets.all(2),
-                child: ClipOval(
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-                    fit: BoxFit.cover,
-                  ),
+              Text(
+                'WELCOME',
+                style: TextStyle(
+                  color: AppTheme.textSecondary,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
                 ),
               ),
-              const SizedBox(width: 12),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Good Morning',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Faizan Ali',
-                    style: TextStyle(
-                      color: AppTheme.textSecondary,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              SizedBox(height: 2),
+              Text(
+                'Futbol Libre',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -0.5,
+                ),
               ),
             ],
           ),
@@ -177,9 +159,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       width: 40,
       height: 40,
-      decoration: const BoxDecoration(
-        color: AppTheme.darkCard,
+      decoration: BoxDecoration(
+        color: const Color(0xFF23191F),
         shape: BoxShape.circle,
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
       ),
       child: Icon(icon, color: Colors.white, size: 18),
     );
@@ -200,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Container(
       height: 48,
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -254,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 40,
               margin: const EdgeInsets.only(right: 10),
               decoration: const BoxDecoration(
-                color: AppTheme.darkCard,
+                color: Color(0xFF23191F),
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -274,11 +257,12 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFF1C1419),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withOpacity(0.08)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 3),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
