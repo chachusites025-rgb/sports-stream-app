@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #140e13;
-      --bg-dark: #0e0a0d;
-      --card-bg: transparent; /* Background removed as requested */
-      --card-border-dashed: rgba(255, 255, 255, 0.2);
-      --card-notch: #1c141a;
-      --accent-red: #e12b4c;
-      --accent-pink: #ff3b5c;
-      --live-green: #22c55e;
+      --bg: #090e15;
+      --bg-surface: #0f1722;
+      --card-bg: #141e2b;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: #192637;
+      --brand-green: #00e676;
+      --brand-green-glow: rgba(0, 230, 118, 0.35);
+      --brand-green-subtle: rgba(0, 230, 118, 0.12);
       --text: #ffffff;
-      --text-muted: #9e8e97;
-      --text-dim: #6d6067;
+      --text-muted: #8fa3b8;
+      --text-dim: #5a6e82;
     }
 
     * {
@@ -31,7 +31,7 @@
     }
 
     body {
-      background: #080608;
+      background: #05080c;
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -55,9 +55,9 @@
     }
 
     .toolbar-pill {
-      background: #1c151a;
-      border: 1px solid #32262e;
-      padding: 6px 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
       border-radius: 20px;
       cursor: pointer;
       display: flex;
@@ -68,7 +68,8 @@
       transition: all 0.2s;
     }
     .toolbar-pill:hover {
-      border-color: var(--accent-red);
+      border-color: var(--brand-green);
+      color: var(--brand-green);
     }
 
     /* Phone Device Simulator Frame */
@@ -78,7 +79,7 @@
       height: 870px;
       max-height: 94vh;
       background: var(--bg);
-      border: 9px solid #3d2f36;
+      border: 9px solid #1f2c3d;
       border-radius: 50px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
       position: relative;
@@ -153,18 +154,18 @@
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 10px 12px 80px 12px;
+      padding: 12px 14px 80px 14px;
       scrollbar-width: none;
     }
     .screen-scroll::-webkit-scrollbar { display: none; }
 
-    /* Top App Header: Welcome Futbol Libre */
+    /* Top App Header: Clean Welcome Futbol Libre (Chat & Bell icons removed as requested) */
     .app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 6px;
-      margin-bottom: 18px;
+      margin-top: 4px;
+      margin-bottom: 20px;
       padding: 0 4px;
     }
 
@@ -174,57 +175,47 @@
     }
 
     .app-welcome-sub {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      color: var(--brand-green);
+      letter-spacing: 0.3px;
+      text-transform: none; /* Written as 'Welcome' */
     }
 
     .app-brand-title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.6px;
       line-height: 1.2;
     }
 
-    .header-actions {
-      display: flex;
+    .brand-live-indicator {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      background: var(--brand-green-subtle);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-green);
     }
 
-    .icon-btn {
-      width: 40px;
-      height: 40px;
+    .live-dot-pulse {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: #23191f;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      position: relative;
-      color: #fff;
-      font-size: 16px;
-      transition: all 0.2s;
+      background: var(--brand-green);
+      box-shadow: 0 0 8px var(--brand-green);
+      animation: pulse 1.6s infinite;
     }
 
-    .icon-btn:hover {
-      background: #2d2027;
-      transform: scale(1.05);
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-pink);
-      border-radius: 50%;
-      position: absolute;
-      top: 9px;
-      right: 9px;
-      box-shadow: 0 0 6px var(--accent-pink);
+    @keyframes pulse {
+      0% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.6; transform: scale(0.9); }
     }
 
     /* Horizontal Sports Selector (Pills) */
@@ -243,9 +234,9 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #23191f;
-      border: none;
-      padding: 7px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
       border-radius: 25px;
       font-size: 13px;
       font-weight: 600;
@@ -256,40 +247,40 @@
     }
 
     .sport-pill.active {
-      background: var(--accent-red);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(225, 43, 76, 0.4);
+      background: var(--brand-green);
+      border-color: var(--brand-green);
+      color: #000000;
+      font-weight: 700;
+      box-shadow: 0 4px 16px var(--brand-green-glow);
     }
 
     .sport-pill .sport-icon {
-      font-size: 15px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Search Box: Smooth stationary focus (no shake/jump, clean luxury shadow) */
+    /* Search Box: White & Green Futbol Libre Styling (Stationary, Clean Shadow) */
     .search-bar-box {
       width: 100%;
-      background: #1c1419;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 12px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      /* Zero transform or margin shifts to prevent any shaking/jumping */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       transform: none !important;
     }
 
     .search-bar-box:focus-within {
-      background: #22181f;
-      border-color: rgba(255, 255, 255, 0.25);
-      /* Clean luxury dark shadow without bright distracting colors */
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
+      background: var(--card-bg);
+      border-color: var(--brand-green);
+      box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.25), 0 8px 24px rgba(0, 0, 0, 0.7);
       transform: none !important;
     }
 
@@ -302,7 +293,7 @@
     }
 
     .search-bar-box:focus-within .search-svg-icon {
-      stroke: #ffffff;
+      stroke: var(--brand-green);
     }
 
     .search-bar-box input {
@@ -319,7 +310,7 @@
       font-size: 13px;
     }
 
-    /* Matches List: Full Width */
+    /* Matches List */
     .matches-list {
       display: flex;
       flex-direction: column;
@@ -327,43 +318,52 @@
       width: 100%;
     }
 
-    /* Match Item Card: Background Transparent + Dashed Border + 8px Radius */
+    /* Match Item Card: Solid BG + 12px Radius + Clean Top League/Time + Logo BG */
     .match-item-card {
       width: 100%;
-      background: transparent; /* Background removed as requested */
-      border: 1.5px dashed rgba(255, 255, 255, 0.18); /* Dashed border */
-      border-radius: 8px; /* 8px radius */
-      padding: 0 14px 14px 14px;
+      background: var(--card-bg); /* Solid background */
+      border: 1px solid var(--card-border);
+      border-radius: 12px; /* Exact 12px radius */
+      padding: 14px 16px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
     }
 
     .match-item-card:hover {
-      background: rgba(255, 255, 255, 0.03);
-      border-color: rgba(255, 255, 255, 0.35);
-      transform: translateY(-1px);
+      background: var(--card-hover);
+      border-color: rgba(0, 230, 118, 0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 16px rgba(0, 230, 118, 0.1);
+      transform: translateY(-2px);
     }
 
-    /* Top Notch Header: Time sits in a smooth recessed tab */
-    .card-top-notch-wrap {
+    /* Top Row of Card: League Tag + Time Pill */
+    .card-top-header-row {
       display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .card-top-notch {
-      background: var(--card-notch);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-top: none;
-      padding: 4px 16px;
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
+    .league-chip {
       font-size: 11px;
       font-weight: 700;
-      color: #fff;
+      color: var(--brand-green);
       letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .time-chip-badge {
+      background: var(--brand-green-subtle);
+      border: 1px solid rgba(0, 230, 118, 0.25);
+      color: var(--brand-green);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
     }
 
     .match-card-main-content {
@@ -373,21 +373,34 @@
       width: 100%;
     }
 
-    /* Left Team: Logo + Single line name with ellipsis */
+    /* Team Box with Logo Background */
     .team-left-box {
       flex: 1;
       display: flex;
       align-items: center;
       gap: 10px;
-      min-width: 0; /* Prevents push overflow */
+      min-width: 0;
+    }
+
+    /* Logo Circular Background (as requested: "log ka bg bi ho ok") */
+    .team-logo-wrapper {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08); /* Dedicated logo background */
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      flex-shrink: 0;
     }
 
     .team-badge-logo {
-      width: 32px;
-      height: 32px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-      flex-shrink: 0;
     }
 
     .team-text-block {
@@ -400,8 +413,8 @@
     .team-name-text {
       font-size: 13px;
       font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
+      color: #ffffff;
+      line-height: 1.25;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; /* e.g. Paris Saint-... */
@@ -424,13 +437,20 @@
     }
 
     .center-vs-text {
-      font-size: 11px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
       font-weight: 800;
       color: var(--text-muted);
-      letter-spacing: 0.5px;
     }
 
-    /* Right Team: Single line name with ellipsis on left, Logo on far right */
+    /* Right Team */
     .team-right-box {
       flex: 1;
       display: flex;
@@ -438,7 +458,7 @@
       justify-content: flex-end;
       gap: 10px;
       text-align: right;
-      min-width: 0; /* Prevents push overflow */
+      min-width: 0;
     }
 
     .team-right-box .team-text-block {
@@ -474,8 +494,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px;
-      border-bottom: 1px solid #33272e;
-      background: #1c141a;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--bg-surface);
     }
 
     .modal-match-title {
@@ -489,8 +509,8 @@
     }
 
     .modal-close-btn {
-      background: #33272e;
-      border: none;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       color: #fff;
       width: 32px;
       height: 32px;
@@ -500,6 +520,12 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--brand-green);
+      color: #000;
     }
 
     .video-wrapper {
@@ -525,11 +551,11 @@
     }
 
     .modal-btn {
-      background: var(--accent-red);
-      color: #fff;
+      background: var(--brand-green);
+      color: #000000;
       border: none;
       padding: 12px;
-      border-radius: 14px;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
@@ -537,12 +563,14 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 14px var(--brand-green-glow);
     }
 
     .modal-btn.secondary {
-      background: #2b2027;
-      border: 1px solid #33272e;
-      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      box-shadow: none;
     }
 
     .loading-pulse {
@@ -580,32 +608,27 @@
     <!-- Scrollable Content -->
     <div class="screen-scroll">
       
-      <!-- Top App Header: Welcome Futbol Libre -->
+      <!-- Top App Header: Welcome Futbol Libre (Chat & Bell icons removed as requested) -->
       <div class="app-header">
         <div class="brand-title-box">
           <div class="app-welcome-sub">Welcome</div>
           <div class="app-brand-title">Futbol Libre</div>
         </div>
-        <div class="header-actions">
-          <div class="icon-btn" title="Messages">
-            💬
-          </div>
-          <div class="icon-btn" title="Notifications">
-            🔔
-            <div class="badge-dot"></div>
-          </div>
+        <div class="brand-live-indicator">
+          <div class="live-dot-pulse"></div>
+          <span>LIVE</span>
         </div>
       </div>
 
-      <!-- Sports Category Pills -->
+      <!-- Sports Category Pills (White & Green Theme) -->
       <div class="sports-row" id="sportsSelector">
         <div class="sport-pill active" onclick="filterSport('ALL')">
-          <span class="sport-icon">🏆</span>
+          <span class="sport-icon">⚽</span>
           <span>All Sports</span>
         </div>
       </div>
 
-      <!-- Search Box with clean stationary shadow (no jump/shake) -->
+      <!-- Search Box with clean stationary shadow (White & Green) -->
       <div class="search-bar-box">
         <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
@@ -614,7 +637,7 @@
         <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
       </div>
 
-      <!-- Match Cards List (Background Transparent + Dashed Border + 8px Radius) -->
+      <!-- Match Cards List (12px Radius + Solid BG + Logo Background + White & Green) -->
       <div class="matches-list" id="matchesListContainer">
         <div class="loading-pulse">Connecting to live API schedule...</div>
       </div>
@@ -631,7 +654,7 @@
         <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-details">
-        <div style="background: #1c141a; padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="background: var(--card-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--card-border);">
           <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
           <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
         </div>
@@ -765,19 +788,23 @@
         const team2Logo = m.Team2Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
         const titleSafe = `${m.Team1} vs ${m.Team2}`.replace(/'/g, "\\'");
         const timeDisplay = m.Time || 'LIVE';
+        const leagueName = m.League || m.Sport || 'Match';
 
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
             
-            <!-- Top Center Recessed Notch with Time -->
-            <div class="card-top-notch-wrap">
-              <div class="card-top-notch">${timeDisplay}</div>
+            <!-- Top Row: League Tag on Left, Time Badge on Right -->
+            <div class="card-top-header-row">
+              <span class="league-chip">${leagueName}</span>
+              <span class="time-chip-badge">⏱ ${timeDisplay}</span>
             </div>
             
             <div class="match-card-main-content">
-              <!-- Left Team: Logo + Single line name with ellipsis -->
+              <!-- Left Team: Logo with circular background + Single line name with ellipsis -->
               <div class="team-left-box">
-                <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                <div class="team-logo-wrapper">
+                  <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                </div>
                 <div class="team-text-block">
                   <div class="team-name-text" title="${m.Team1}">${m.Team1}</div>
                   <div class="team-sub-role">Home</div>
@@ -789,13 +816,15 @@
                 <div class="center-vs-text">VS</div>
               </div>
 
-              <!-- Right Team: Single line name with ellipsis + Logo -->
+              <!-- Right Team: Single line name with ellipsis + Logo with circular background -->
               <div class="team-right-box">
                 <div class="team-text-block">
                   <div class="team-name-text" title="${m.Team2}">${m.Team2}</div>
                   <div class="team-sub-role">Away</div>
                 </div>
-                <img class="team-badge-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                <div class="team-logo-wrapper">
+                  <img class="team-badge-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                </div>
               </div>
             </div>
           </div>

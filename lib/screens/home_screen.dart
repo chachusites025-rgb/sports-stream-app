@@ -107,12 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'WELCOME',
+                'Welcome', // Title Case as requested
                 style: TextStyle(
-                  color: AppTheme.textSecondary,
-                  fontSize: 11,
+                  color: AppTheme.brandGreen,
+                  fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
+                  letterSpacing: 0.3,
                 ),
               ),
               SizedBox(height: 2),
@@ -120,57 +120,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Futbol Libre',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 24,
                   fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
+                  letterSpacing: -0.6,
                 ),
               ),
             ],
           ),
-          Row(
-            children: [
-              _buildCircleButton(Icons.chat_bubble_outline_rounded),
-              const SizedBox(width: 8),
-              Stack(
-                children: [
-                  _buildCircleButton(Icons.notifications_none_rounded),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
-                        color: AppTheme.accentPink,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
+          // Live indicator badge replacing chat/bell icons
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            decoration: BoxDecoration(
+              color: AppTheme.brandGreenSubtle,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppTheme.brandGreen.withOpacity(0.3)),
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 3.5,
+                  backgroundColor: AppTheme.brandGreen,
+                ),
+                SizedBox(width: 6),
+                Text(
+                  'LIVE',
+                  style: TextStyle(
+                    color: AppTheme.brandGreen,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCircleButton(IconData icon) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: const Color(0xFF23191F),
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
-      ),
-      child: Icon(icon, color: Colors.white, size: 18),
-    );
-  }
-
   Widget _buildSportsRow() {
     final iconMap = {
-      'ALL': '🏆',
+      'ALL': '⚽',
       'LALIGA': '⚽',
       'FRENCH-LIGUE-1': '⚽',
       'BUNDESLIGA': '⚽',
@@ -199,23 +190,24 @@ class _HomeScreenState extends State<HomeScreen> {
               margin: const EdgeInsets.only(right: 10),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
-                color: AppTheme.accentRed,
+                color: AppTheme.brandGreen, // White & Green Futbol Libre Theme
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: AppTheme.accentRed.withOpacity(0.4),
-                    blurRadius: 10,
+                    color: AppTheme.brandGreenGlow,
+                    blurRadius: 12,
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
               child: Row(
                 children: [
-                  Text(icon, style: const TextStyle(fontSize: 16)),
+                  Text(icon, style: const TextStyle(fontSize: 15)),
                   const SizedBox(width: 8),
                   Text(
                     label,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.black, // High contrast black text on green
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
@@ -233,15 +225,26 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             child: Container(
-              width: 40,
-              height: 40,
               margin: const EdgeInsets.only(right: 10),
-              decoration: const BoxDecoration(
-                color: Color(0xFF23191F),
-                shape: BoxShape.circle,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppTheme.darkCard,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: Colors.white.withOpacity(0.08)),
               ),
-              child: Center(
-                child: Text(icon, style: const TextStyle(fontSize: 16)),
+              child: Row(
+                children: [
+                  Text(icon, style: const TextStyle(fontSize: 14)),
+                  const SizedBox(width: 6),
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      color: AppTheme.textSecondary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
           );
@@ -255,14 +258,14 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.fromLTRB(14, 4, 14, 12),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF1C1419),
+          color: AppTheme.darkSurface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white.withOpacity(0.08)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.35),
               blurRadius: 8,
-              offset: const Offset(0, 2),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -273,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: const InputDecoration(
             hintText: 'Search teams, leagues, sports...',
             hintStyle: TextStyle(color: AppTheme.textMuted, fontSize: 13),
-            icon: Icon(Icons.search_rounded, color: AppTheme.textSecondary, size: 18),
+            icon: Icon(Icons.search_rounded, color: AppTheme.brandGreen, size: 18),
             border: InputBorder.none,
           ),
           onChanged: (val) {
@@ -293,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppTheme.darkBackground,
       body: SafeArea(
         child: RefreshIndicator(
-          color: AppTheme.accentRed,
+          color: AppTheme.brandGreen,
           onRefresh: () => _loadData(),
           child: CustomScrollView(
             slivers: [
@@ -302,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(child: _buildSearchBox()),
               if (_isLoading && _allMatches.isEmpty)
                 const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator(color: AppTheme.accentRed)),
+                  child: Center(child: CircularProgressIndicator(color: AppTheme.brandGreen)),
                 )
               else
                 SliverList(
