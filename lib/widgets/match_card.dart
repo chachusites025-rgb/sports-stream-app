@@ -21,8 +21,8 @@ class MatchCard extends StatelessWidget {
   Widget _buildTeamLogo(String url, String teamName) {
     if (url.isEmpty) {
       return Container(
-        width: 38,
-        height: 38,
+        width: 44,
+        height: 44,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white.withOpacity(0.08),
@@ -30,19 +30,19 @@ class MatchCard extends StatelessWidget {
         child: Center(
           child: Text(
             teamName.isNotEmpty ? teamName[0].toUpperCase() : 'S',
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
           ),
         ),
       );
     }
     return CachedNetworkImage(
       imageUrl: url,
-      width: 38,
-      height: 38,
+      width: 44,
+      height: 44,
       fit: BoxFit.contain,
       errorWidget: (context, url, error) => Container(
-        width: 38,
-        height: 38,
+        width: 44,
+        height: 44,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white.withOpacity(0.08),
@@ -50,7 +50,7 @@ class MatchCard extends StatelessWidget {
         child: Center(
           child: Text(
             teamName.isNotEmpty ? teamName[0].toUpperCase() : 'S',
-            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
           ),
         ),
       ),
@@ -59,6 +59,8 @@ class MatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timeStr = match.time.isNotEmpty ? match.time : 'LIVE';
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
@@ -80,118 +82,112 @@ class MatchCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(22),
           onTap: () => _openPlayer(context),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: [
-                // Top Centered Pill: Next Match
-                const Text(
-                  'Next Match',
-                  style: TextStyle(
-                    color: AppTheme.textSecondary,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
+                // Top Centered Time Chip (Replaced Next Match, Date Removed)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: AppTheme.accentPink.withOpacity(0.14),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppTheme.accentPink.withOpacity(0.35)),
+                  ),
+                  child: Text(
+                    '⏱ $timeStr',
+                    style: const TextStyle(
+                      color: AppTheme.accentPink,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
 
-                // Teams Row
+                // Teams Row: Logos on top, clean names underneath
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Left Team
+                    // Left Team (Home)
                     Expanded(
-                      child: Row(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           _buildTeamLogo(match.team1Logo, match.team1),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  match.team1,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  'Home',
-                                  style: TextStyle(
-                                    color: AppTheme.textSecondary,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Center Date & Time
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Column(
-                        children: [
+                          const SizedBox(height: 6),
                           Text(
-                            match.date.isNotEmpty ? match.date.split(',')[0] : 'Today',
+                            match.team1,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
-                              color: AppTheme.textSecondary,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            match.time.isNotEmpty ? match.time : 'LIVE',
-                            style: const TextStyle(
-                              color: AppTheme.accentPink,
-                              fontSize: 13,
+                              color: Colors.white,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Home',
+                            style: TextStyle(
+                              color: AppTheme.textSecondary,
+                              fontSize: 10,
+                            ),
                           ),
                         ],
                       ),
                     ),
 
-                    // Right Team
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  match.team2,
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  'Away',
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    color: AppTheme.textSecondary,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ],
+                    // Center VS circle
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.05),
+                          border: Border.all(color: AppTheme.darkCardBorder),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'VS',
+                            style: TextStyle(
+                              color: AppTheme.textSecondary,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
-                          const SizedBox(width: 8),
+                        ),
+                      ),
+                    ),
+
+                    // Right Team (Away)
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           _buildTeamLogo(match.team2Logo, match.team2),
+                          const SizedBox(height: 6),
+                          Text(
+                            match.team2,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Away',
+                            style: TextStyle(
+                              color: AppTheme.textSecondary,
+                              fontSize: 10,
+                            ),
+                          ),
                         ],
                       ),
                     ),

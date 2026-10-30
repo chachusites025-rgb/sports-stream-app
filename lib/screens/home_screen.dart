@@ -18,6 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<MatchModel> _allMatches = [];
   List<MatchModel> _filteredMatches = [];
   String _selectedCategory = 'ALL';
+  String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;
   String? _errorMessage;
   Timer? _autoRefreshTimer;
@@ -34,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _autoRefreshTimer?.cancel();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -68,13 +71,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _applyFilters() {
-    if (_selectedCategory == 'ALL') {
-      _filteredMatches = _allMatches;
-    } else {
-      _filteredMatches = _allMatches
-          .where((m) => m.sport.toUpperCase() == _selectedCategory)
-          .toList();
+    List<MatchModel> list = _allMatches;
+
+    // Filter by sport category
+    if (_selectedCategory != 'ALL') {
+      list = list.where((m) => m.sport.toUpperCase() == _selectedCategory).toList();
     }
+
+    // Filter by search query
+    if (_searchQuery.trim().isNotEmpty) {
+      final q = _searchQuery.toLowerCase().trim();
+      list = list.where((m) {
+        return m.team1.toLowerCase().contains(q) ||
+            m.team2.toLowerCase().contains(q) ||
+            m.league.toLowerCase().contains(q) ||
+            m.sport.toLowerCase().contains(q);
+      }).toList();
+    } else if (_selectedCategory == 'ALL' && list.length > 1) {
+      // Exclude featured match from repeating in the list below when viewing ALL without search
+      list = list.sublist(1);
+    }
+
+    _filteredMatches = list;
   }
 
   Widget _buildTopHeader() {
@@ -285,15 +303,20 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Match', style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
+                // Real League Logo & League Name
                 Column(
                   children: [
+                    if (match.leagueLogo.isNotEmpty)
+                      CachedNetworkImage(
+                        imageUrl: match.leagueLogo,
+                        height: 22,
+                        fit: BoxFit.contain,
+                        errorWidget: (_, __, ___) => const SizedBox.shrink(),
+                      ),
+                    const SizedBox(height: 2),
                     Text(
                       match.league,
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
-                    ),
-                    Text(
-                      match.sport.replaceAll('-', ' '),
-                      style: const TextStyle(color: AppTheme.textSecondary, fontSize: 10),
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                     ),
                   ],
                 ),
@@ -369,6 +392,36 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildSearchBox() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppTheme.darkCard,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppTheme.darkCardBorder),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: TextField(
+          controller: _searchController,
+          style: const TextStyle(color: Colors.white, fontSize: 13),
+          decoration: const InputDecoration(
+            hintText: 'Search teams, leagues, sports...',
+            hintStyle: TextStyle(color: AppTheme.textMuted, fontSize: 13),
+            icon: Icon(Icons.search, color: AppTheme.textSecondary, size: 18),
+            border: InputBorder.none,
+          ),
+          onChanged: (val) {
+            setState(() {
+              _searchQuery = val;
+              _applyFilters();
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -382,19 +435,20 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(child: _buildTopHeader()),
               SliverToBoxAdapter(child: _buildSportsRow()),
               SliverToBoxAdapter(child: _buildFeaturedCard()),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 16, 18, 8),
+                  padding: EdgeInsets.fromLTRB(18, 14, 18, 4),
                   child: Text(
-                    _selectedCategory == 'ALL' ? 'Live Matches & Streams' : _selectedCategory.replaceAll('-', ' '),
-                    style: const TextStyle(
+                    'Live Matches & Streams',
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
+              SliverToBoxAdapter(child: _buildSearchBox()),
               if (_isLoading && _allMatches.isEmpty)
                 const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator(color: AppTheme.accentRed)),

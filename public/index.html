@@ -312,18 +312,24 @@
     }
 
     .featured-top .league-badge {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .featured-top .league-logo-img {
+      height: 22px;
+      max-width: 60px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
 
     .featured-top .league-name {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
-    }
-
-    .featured-top .league-sub {
-      font-size: 10px;
-      color: var(--text-muted);
+      letter-spacing: 0.5px;
     }
 
     .featured-body {
@@ -400,7 +406,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin: 10px 0 20px 0;
+      margin: 10px 0 16px 0;
     }
 
     .carousel-dot {
@@ -417,12 +423,45 @@
       background: var(--accent-red);
     }
 
+    /* Search Box above matches list */
+    .matches-search-container {
+      margin-bottom: 14px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .matches-search-container input {
+      width: 100%;
+      background: #231b20;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      color: #fff;
+      padding: 12px 14px 12px 40px;
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .matches-search-container input:focus {
+      border-color: var(--accent-red);
+      background: #2a2027;
+      box-shadow: 0 0 12px rgba(225, 43, 76, 0.25);
+    }
+
+    .matches-search-container .search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
     /* Section Title */
     .section-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       letter-spacing: -0.3px;
     }
 
@@ -437,7 +476,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 22px;
-      padding: 14px 16px;
+      padding: 12px 16px 14px 16px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -451,12 +490,22 @@
       background: var(--card-hover);
     }
 
-    .match-item-header {
-      text-align: center;
+    /* Top Center: Time Badge (Replaced "Next Match" and date removed) */
+    .match-item-header-time {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .match-time-chip {
+      background: rgba(255, 59, 92, 0.14);
+      border: 1px solid rgba(255, 59, 92, 0.35);
+      color: var(--accent-pink);
+      padding: 3px 12px;
+      border-radius: 12px;
       font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
     }
 
     .match-item-content {
@@ -465,64 +514,58 @@
       justify-content: space-between;
     }
 
-    .team-item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* Left Team: Logo on top, small clean name underneath */
+    .team-col-box {
       flex: 1;
-    }
-
-    .team-item-right {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      flex: 1;
-      text-align: right;
+      text-align: center;
+      gap: 5px;
     }
 
     .team-item-logo {
-      width: 38px;
-      height: 38px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
     }
 
-    .team-item-info .team-title {
-      font-size: 13px;
+    .team-item-title {
+      font-size: 12px;
       font-weight: 700;
       color: #fff;
-      max-width: 90px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      max-width: 120px;
+      line-height: 1.2;
+      word-break: break-word;
     }
 
-    .team-item-info .team-sub {
-      font-size: 11px;
+    .team-item-sub {
+      font-size: 10px;
       color: var(--text-muted);
     }
 
-    .match-center-timing {
+    /* Center VS badge */
+    .match-center-vs {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-width: 80px;
-      padding: 0 4px;
+      padding: 0 10px;
     }
 
-    .match-center-timing .date-str {
-      font-size: 11px;
+    .vs-pill {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 900;
       color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .match-center-timing .time-str {
-      font-size: 13px;
-      color: var(--accent-pink);
-      font-weight: 700;
-      margin-top: 2px;
     }
 
     /* Live Stream Slide-up Modal */
@@ -690,13 +733,13 @@
         </div>
       </div>
 
-      <!-- Featured Big Live Match Banner (Loaded dynamically from API) -->
+      <!-- Featured Big Live Match Banner (With Real League Logo) -->
       <div class="featured-card" id="featuredMatchCard" onclick="openFeaturedStream()">
         <div class="featured-top">
           <span>Match</span>
           <div class="league-badge">
+            <img id="featuredLeagueLogo" class="league-logo-img" src="" alt="League">
             <div class="league-name" id="featuredLeague">Loading...</div>
-            <div class="league-sub" id="featuredSub">Live Stream</div>
           </div>
           <span style="color: var(--accent-pink);">Live</span>
         </div>
@@ -713,7 +756,7 @@
           <div class="featured-score-box">
             <div class="featured-score" id="featuredScore">LIVE</div>
             <div class="live-minute-pill">
-              <span>▶</span> <span id="featuredMinute">LIVE NOW</span>
+              <span>▶</span> <span id="featuredMinute">LIVE STREAM</span>
             </div>
           </div>
 
@@ -733,7 +776,13 @@
         <div class="carousel-dot"></div>
       </div>
 
-      <!-- League Section Title -->
+      <!-- Search Box right above matches -->
+      <div class="matches-search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
+      </div>
+
+      <!-- Section Title -->
       <div class="section-title" id="sectionLeagueTitle">Live Matches & Streams</div>
 
       <!-- Match Cards List -->
@@ -770,6 +819,7 @@
   <script>
     let allMatches = [];
     let currentSelectedSport = 'ALL';
+    let searchQuery = '';
     let featuredMatch = null;
     let activeStreamUrl = '';
 
@@ -777,7 +827,7 @@
       try {
         let rawData = null;
 
-        // Try local server proxy first, then direct API
+        // Try proxy first then direct
         try {
           const res = await fetch('/api/schedule');
           if (res.ok) {
@@ -792,7 +842,6 @@
           rawData = await res.json();
         }
 
-        // Support both direct array and { value: [...] } structures
         allMatches = Array.isArray(rawData) ? rawData : (rawData.value || []);
         console.log('Loaded matches:', allMatches.length);
 
@@ -817,7 +866,12 @@
     function updateFeaturedCard(m) {
       if (!m) return;
       document.getElementById('featuredLeague').innerText = m.League || 'Live League';
-      document.getElementById('featuredSub').innerText = (m.Sport || 'Live Match').replace(/-/g, ' ');
+      
+      const leagueLogo = m.LeagueLogo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
+      const leagueImg = document.getElementById('featuredLeagueLogo');
+      leagueImg.src = leagueLogo;
+      leagueImg.style.display = leagueLogo ? 'block' : 'none';
+
       document.getElementById('featuredTeam1Name').innerText = m.Team1 || 'Team 1';
       document.getElementById('featuredTeam2Name').innerText = m.Team2 || 'Team 2';
       
@@ -880,21 +934,44 @@
       renderSportsPills();
       renderMatchCards();
       
-      const title = sport === 'ALL' ? 'UEFA & Live Sports Matches' : sport.replace(/-/g, ' ');
+      const title = sport === 'ALL' ? 'Live Matches & Streams' : sport.replace(/-/g, ' ');
       document.getElementById('sectionLeagueTitle').innerText = title;
     }
 
+    function handleSearch(val) {
+      searchQuery = val.toLowerCase().trim();
+      renderMatchCards();
+    }
+
     function renderMatchCards() {
-      const list = currentSelectedSport === 'ALL'
-        ? allMatches
-        : allMatches.filter(m => m.Sport && m.Sport.toUpperCase() === currentSelectedSport);
+      let list = allMatches;
+
+      // Filter by Sport
+      if (currentSelectedSport !== 'ALL') {
+        list = list.filter(m => m.Sport && m.Sport.toUpperCase() === currentSelectedSport);
+      }
+
+      // Do not repeat the featured match in the list below when viewing ALL sports without search
+      if (currentSelectedSport === 'ALL' && !searchQuery && list.length > 1) {
+        list = list.slice(1);
+      }
+
+      // Filter by search query
+      if (searchQuery) {
+        list = list.filter(m => {
+          return (m.Team1 && m.Team1.toLowerCase().includes(searchQuery)) ||
+                 (m.Team2 && m.Team2.toLowerCase().includes(searchQuery)) ||
+                 (m.League && m.League.toLowerCase().includes(searchQuery)) ||
+                 (m.Sport && m.Sport.toLowerCase().includes(searchQuery));
+        });
+      }
 
       const container = document.getElementById('matchesListContainer');
 
       if (!list || list.length === 0) {
         container.innerHTML = `
           <div style="text-align: center; padding: 30px; color: var(--text-muted); font-size: 13px;">
-            No matches currently streaming for this sport.
+            No matches found.
           </div>
         `;
         return;
@@ -904,35 +981,34 @@
         const team1Logo = m.Team1Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
         const team2Logo = m.Team2Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
         const titleSafe = `${m.Team1} vs ${m.Team2}`.replace(/'/g, "\\'");
-        const dateStr = m.Date ? m.Date.split(',')[0] : 'Today';
+        const timeDisplay = m.Time || 'LIVE';
 
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
-            <div class="match-item-header">Next Match</div>
+            
+            <!-- Top Center Time Badge (Date Removed & Replaces Next Match) -->
+            <div class="match-item-header-time">
+              <span class="match-time-chip">⏱ ${timeDisplay}</span>
+            </div>
             
             <div class="match-item-content">
-              <!-- Left Team -->
-              <div class="team-item-left">
+              <!-- Left Team: Logo with clean name underneath -->
+              <div class="team-col-box">
                 <img class="team-item-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
-                <div class="team-item-info">
-                  <div class="team-title">${m.Team1}</div>
-                  <div class="team-sub">Home</div>
-                </div>
+                <div class="team-item-title">${m.Team1}</div>
+                <div class="team-item-sub">Home</div>
               </div>
 
-              <!-- Center Date & Time (Pink / Red) -->
-              <div class="match-center-timing">
-                <div class="date-str">${dateStr}</div>
-                <div class="time-str">${m.Time || 'LIVE'}</div>
+              <!-- Center VS Circle -->
+              <div class="match-center-vs">
+                <div class="vs-pill">VS</div>
               </div>
 
-              <!-- Right Team -->
-              <div class="team-item-right">
-                <div class="team-item-info">
-                  <div class="team-title">${m.Team2}</div>
-                  <div class="team-sub">Away</div>
-                </div>
+              <!-- Right Team: Logo with clean name underneath -->
+              <div class="team-col-box">
                 <img class="team-item-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                <div class="team-item-title">${m.Team2}</div>
+                <div class="team-item-sub">Away</div>
               </div>
             </div>
           </div>
