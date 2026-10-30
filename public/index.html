@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sports Streaming Live App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #140e13;
+      --bg-dark: #0e0a0d;
+      --card-bg: #231b20;
+      --card-border: #32262e;
+      --card-hover: #2b2127;
+      --accent-red: #e12b4c;
+      --accent-pink: #ff3b5c;
+      --live-green: #22c55e;
+      --text: #ffffff;
+      --text-muted: #9e8e97;
+      --text-dim: #6d6067;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #080608;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px 8px;
+    }
+
+    /* Top Controls Bar for Desktop View */
+    .top-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 12px;
+      padding: 4px 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .toolbar-pill {
+      background: #1c151a;
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .toolbar-pill:hover {
+      border-color: var(--accent-red);
+    }
+
+    /* Phone Device Simulator Frame */
+    .device-container {
+      width: 412px;
+      max-width: 100%;
+      height: 870px;
+      max-height: 94vh;
+      background: var(--bg);
+      border: 9px solid #3d2f36;
+      border-radius: 50px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Fullscreen view when toggled or on actual mobile screens */
+    .device-container.fullscreen-mode {
+      width: 100%;
+      max-width: 500px;
+      height: 100vh;
+      max-height: 100vh;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0;
+        background: var(--bg);
+      }
+      .top-toolbar {
+        display: none;
+      }
+      .device-container {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    /* Phone Notch / Dynamic Island */
+    .status-bar {
+      height: 48px;
+      padding: 12px 24px 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      z-index: 50;
+      background: var(--bg);
+    }
+
+    .island-pill {
+      width: 100px;
+      height: 24px;
+      background: #000;
+      border-radius: 20px;
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    /* Scrollable App Screen Content */
+    .screen-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 10px 18px 80px 18px;
+      scrollbar-width: none;
+    }
+    .screen-scroll::-webkit-scrollbar { display: none; }
+
+    /* Header: User greeting + Chat & Notification Icons */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      margin-bottom: 20px;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d92949, #ffa502);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .greeting-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .user-name {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #231b20;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: #2d2229;
+      border-color: var(--accent-red);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      box-shadow: 0 0 6px var(--accent-pink);
+    }
+
+    /* Horizontal Sports Selector (Pills) */
+    .sports-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 22px;
+      scrollbar-width: none;
+    }
+    .sports-row::-webkit-scrollbar { display: none; }
+
+    .sport-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #231b20;
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .sport-pill.active {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(225, 43, 76, 0.4);
+    }
+
+    .sport-pill .sport-icon {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sport-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #231b20;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .sport-circle:hover {
+      border-color: var(--accent-red);
+      transform: scale(1.05);
+    }
+
+    /* Featured Hero Live Match Card */
+    .featured-card {
+      background: linear-gradient(170deg, #281f25 0%, #1c151a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 16px 20px 20px 20px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(225, 43, 76, 0.5);
+    }
+
+    .featured-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .featured-top .league-badge {
+      text-align: center;
+    }
+
+    .featured-top .league-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .featured-top .league-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .featured-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .featured-team {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .featured-team img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+
+    .featured-team .name {
+      font-size: 14px;
+      font-weight: 700;
+      max-width: 95px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .featured-team .role {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .featured-score-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 10px;
+    }
+
+    .featured-score {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .live-minute-pill {
+      background: rgba(34, 197, 94, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: var(--live-green);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Carousel indicator dots */
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 10px 0 22px 0;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #33272e;
+    }
+
+    .carousel-dot.active {
+      width: 22px;
+      height: 6px;
+      border-radius: 10px;
+      background: var(--accent-red);
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+
+    /* Match Cards List (Exact match from screenshot) */
+    .matches-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 14px 16px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    .match-item-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(225, 43, 76, 0.4);
+      background: var(--card-hover);
+    }
+
+    .match-item-header {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .match-item-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .team-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .team-item-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex: 1;
+      text-align: right;
+    }
+
+    .team-item-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+
+    .team-item-info .team-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      max-width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team-item-info .team-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .match-center-timing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+    }
+
+    .match-center-timing .date-str {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .match-center-timing .time-str {
+      font-size: 13px;
+      color: var(--accent-pink);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Live Stream Slide-up Modal */
+    .stream-modal {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      flex-direction: column;
+      backdrop-filter: blur(12px);
+    }
+
+    .stream-modal.show {
+      display: flex;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--card-bg);
+    }
+
+    .modal-match-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      max-width: 240px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .modal-close-btn {
+      background: #33272e;
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .video-wrapper {
+      width: 100%;
+      height: 250px;
+      background: #000;
+      position: relative;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-details {
+      flex: 1;
+      padding: 18px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-btn {
+      background: var(--accent-red);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .modal-btn.secondary {
+      background: #2b2027;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+    }
+
+    .loading-pulse {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top toolbar for desktop simulator view -->
+  <div class="top-toolbar">
+    <div class="toolbar-pill" onclick="toggleFullscreenView()">
+      <span id="viewModeIcon">📱</span> <span id="viewModeText">Phone Frame Mode</span>
+    </div>
+    <div class="toolbar-pill" onclick="fetchLiveSchedule()">
+      <span>🔄</span> Refresh API
+    </div>
+  </div>
+
+  <!-- Mobile Screen Container -->
+  <div class="device-container" id="deviceContainer">
+    <!-- Status Bar & Dynamic Island -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="island-pill"></div>
+      <div class="status-icons">
+        <span>5G</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="screen-scroll">
+      
+      <!-- Top App Header -->
+      <div class="app-header">
+        <div class="profile-info">
+          <div class="avatar">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Profile">
+          </div>
+          <div>
+            <div class="greeting-text">Good Morning</div>
+            <div class="user-name">Faizan Ali</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="icon-btn" title="Messages">
+            💬
+          </div>
+          <div class="icon-btn" title="Notifications">
+            🔔
+            <div class="badge-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sports Category Pills -->
+      <div class="sports-row" id="sportsSelector">
+        <div class="sport-pill active" onclick="filterSport('ALL')">
+          <span class="sport-icon">⚽</span>
+          <span>All Sports</span>
+        </div>
+        <div class="sport-circle" onclick="filterSport('LALIGA')" title="LaLiga">⚽</div>
+        <div class="sport-circle" onclick="filterSport('FRENCH-LIGUE-1')" title="Ligue 1">⚽</div>
+        <div class="sport-circle" onclick="filterSport('BUNDESLIGA')" title="Bundesliga">⚽</div>
+        <div class="sport-circle" onclick="filterSport('NBA')" title="Basketball">🏀</div>
+        <div class="sport-circle" onclick="filterSport('MOTORSPORTS')" title="Racing">🏎️</div>
+        <div class="sport-circle" onclick="filterSport('NHL')" title="Ice Hockey">🏒</div>
+        <div class="sport-circle" onclick="filterSport('CFB')" title="Football">🏈</div>
+      </div>
+
+      <!-- Featured Big Live Match Banner (Exact design from screenshot) -->
+      <div class="featured-card" id="featuredMatchCard" onclick="openFeaturedStream()">
+        <div class="featured-top">
+          <span>Match</span>
+          <div class="league-badge">
+            <div class="league-name" id="featuredLeague">UFFA League</div>
+            <div class="league-sub" id="featuredSub">Group A</div>
+          </div>
+          <span style="color: var(--accent-pink);">Live</span>
+        </div>
+
+        <div class="featured-body">
+          <!-- Home Team -->
+          <div class="featured-team">
+            <img id="featuredTeam1Logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/83.png" alt="Team 1" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+            <div class="name" id="featuredTeam1Name">Barcelona</div>
+            <div class="role">🏠 Home</div>
+          </div>
+
+          <!-- Score / Live Time -->
+          <div class="featured-score-box">
+            <div class="featured-score" id="featuredScore">2 : 3</div>
+            <div class="live-minute-pill">
+              <span>▶</span> <span id="featuredMinute">90 + 7</span>
+            </div>
+          </div>
+
+          <!-- Away Team -->
+          <div class="featured-team">
+            <img id="featuredTeam2Logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/363.png" alt="Team 2" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+            <div class="name" id="featuredTeam2Name">Chelsea</div>
+            <div class="role">Away</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="carousel-dots">
+        <div class="carousel-dot active"></div>
+        <div class="carousel-dot"></div>
+        <div class="carousel-dot"></div>
+      </div>
+
+      <!-- League Section Title -->
+      <div class="section-title" id="sectionLeagueTitle">UEFA Champions League</div>
+
+      <!-- Match Cards List -->
+      <div class="matches-list" id="matchesListContainer">
+        <div class="loading-pulse">Connecting to live API schedule...</div>
+      </div>
+
+    </div>
+
+    <!-- Live Stream Modal / Player Drawer -->
+    <div class="stream-modal" id="streamModal">
+      <div class="modal-nav">
+        <div class="modal-match-title" id="modalTitle">Live Broadcast</div>
+        <button class="modal-close-btn" onclick="closeStreamModal()">✕</button>
+      </div>
+      <div class="video-wrapper">
+        <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      </div>
+      <div class="modal-details">
+        <div style="background: var(--card-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--card-border);">
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
+          <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
+        </div>
+        <button class="modal-btn" onclick="reloadStreamIframe()">
+          🔄 Reload Video Stream
+        </button>
+        <button class="modal-btn secondary" onclick="openExternalStream()">
+          🌐 Open In External Window
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'https://gamez.quest/api/v1/schedule/all';
+    let allMatches = [];
+    let currentSelectedSport = 'ALL';
+    let featuredMatch = null;
+    let activeStreamUrl = '';
+
+    async function fetchLiveSchedule() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        allMatches = data.value || [];
+
+        if (allMatches.length > 0) {
+          featuredMatch = allMatches[0];
+          updateFeaturedCard(featuredMatch);
+        }
+
+        renderSportsPills();
+        renderMatchCards();
+      } catch (e) {
+        console.error('API Error:', e);
+        document.getElementById('matchesListContainer').innerHTML = `
+          <div style="text-align: center; padding: 24px; color: var(--text-muted);">
+            <div>⚠️ Live API Connection Failed</div>
+            <button class="modal-btn" style="margin: 12px auto; padding: 6px 14px; font-size: 12px;" onclick="fetchLiveSchedule()">Retry</button>
+          </div>
+        `;
+      }
+    }
+
+    function updateFeaturedCard(m) {
+      if (!m) return;
+      document.getElementById('featuredLeague').innerText = m.League || 'Live League';
+      document.getElementById('featuredSub').innerText = m.Sport || 'Live Match';
+      document.getElementById('featuredTeam1Name').innerText = m.Team1 || 'Team 1';
+      document.getElementById('featuredTeam2Name').innerText = m.Team2 || 'Team 2';
+      document.getElementById('featuredTeam1Logo').src = m.Team1Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
+      document.getElementById('featuredTeam2Logo').src = m.Team2Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
+      document.getElementById('featuredScore').innerText = m.Time ? m.Time : 'LIVE';
+      document.getElementById('featuredMinute').innerText = m.Date ? m.Date.split(',')[0] : 'LIVE NOW';
+    }
+
+    function openFeaturedStream() {
+      if (featuredMatch && featuredMatch.IframeURL) {
+        openStreamModal(featuredMatch.IframeURL, `${featuredMatch.Team1} vs ${featuredMatch.Team2}`, featuredMatch.League, featuredMatch.Time);
+      }
+    }
+
+    function renderSportsPills() {
+      const sports = new Set();
+      allMatches.forEach(m => {
+        if (m.Sport) sports.add(m.Sport.toUpperCase());
+      });
+
+      const sportList = ['ALL', ...Array.from(sports)];
+      const icons = {
+        'ALL': '🏆',
+        'LALIGA': '⚽',
+        'FRENCH-LIGUE-1': '⚽',
+        'BUNDESLIGA': '⚽',
+        'BRAZIL-SERIE-A': '⚽',
+        'NBA': '🏀',
+        'NHL': '🏒',
+        'CFB': '🏈',
+        'MOTORSPORTS': '🏎️'
+      };
+
+      const container = document.getElementById('sportsSelector');
+      container.innerHTML = sportList.map(s => {
+        const icon = icons[s] || '⚡';
+        const isSelected = s === currentSelectedSport;
+        const name = s === 'ALL' ? 'All Sports' : s.replace(/-/g, ' ');
+
+        return `
+          <div class="sport-pill ${isSelected ? 'active' : ''}" onclick="filterSport('${s}')">
+            <span class="sport-icon">${icon}</span>
+            <span>${name}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterSport(sport) {
+      currentSelectedSport = sport;
+      renderSportsPills();
+      renderMatchCards();
+      
+      const title = sport === 'ALL' ? 'UEFA & Live Sports Matches' : sport.replace(/-/g, ' ');
+      document.getElementById('sectionLeagueTitle').innerText = title;
+    }
+
+    function renderMatchCards() {
+      const list = currentSelectedSport === 'ALL'
+        ? allMatches
+        : allMatches.filter(m => m.Sport && m.Sport.toUpperCase() === currentSelectedSport);
+
+      const container = document.getElementById('matchesListContainer');
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 30px; color: var(--text-muted); font-size: 13px;">
+            No matches currently streaming for this sport.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(m => {
+        const team1Logo = m.Team1Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
+        const team2Logo = m.Team2Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
+        const titleSafe = `${m.Team1} vs ${m.Team2}`.replace(/'/g, "\\'");
+
+        return `
+          <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
+            <div class="match-item-header">Next Match</div>
+            
+            <div class="match-item-content">
+              <!-- Left Team -->
+              <div class="team-item-left">
+                <img class="team-item-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                <div class="team-item-info">
+                  <div class="team-title">${m.Team1}</div>
+                  <div class="team-sub">Home</div>
+                </div>
+              </div>
+
+              <!-- Center Date & Time (Pink / Red) -->
+              <div class="match-center-timing">
+                <div class="date-str">${m.Date ? m.Date.split(',')[0] : 'Today'}</div>
+                <div class="time-str">${m.Time || 'LIVE'}</div>
+              </div>
+
+              <!-- Right Team -->
+              <div class="team-item-right">
+                <div class="team-item-info">
+                  <div class="team-title">${m.Team2}</div>
+                  <div class="team-sub">Away</div>
+                </div>
+                <img class="team-item-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openStreamModal(url, title, league, time) {
+      activeStreamUrl = url;
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMatchTeams').innerText = title;
+      document.getElementById('modalMatchInfo').innerText = `${league} • ${time} Broadcast`;
+      document.getElementById('streamIframe').src = url;
+      document.getElementById('streamModal').classList.add('show');
+    }
+
+    function closeStreamModal() {
+      document.getElementById('streamModal').classList.remove('show');
+      document.getElementById('streamIframe').src = '';
+    }
+
+    function reloadStreamIframe() {
+      document.getElementById('streamIframe').src = activeStreamUrl;
+    }
+
+    function openExternalStream() {
+      if (activeStreamUrl) {
+        window.open(activeStreamUrl, '_blank');
+      }
+    }
+
+    function toggleFullscreenView() {
+      const container = document.getElementById('deviceContainer');
+      const isFull = container.classList.toggle('fullscreen-mode');
+      document.getElementById('viewModeText').innerText = isFull ? 'Fullscreen Mobile Mode' : 'Phone Frame Mode';
+    }
+
+    // Auto-refresh API every 60 seconds
+    setInterval(fetchLiveSchedule, 60000);
+
+    // Initial load
+    fetchLiveSchedule();
+  </script>
+</body>
+</html>

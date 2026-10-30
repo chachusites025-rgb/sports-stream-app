@@ -5,7 +5,6 @@ import '../models/match_model.dart';
 class ApiService {
   static const String scheduleApiUrl = 'https://gamez.quest/api/v1/schedule/all';
 
-  /// Fetches all matches from the API
   static Future<List<MatchModel>> fetchSchedule() async {
     try {
       final response = await http
@@ -54,4 +53,3 @@ class ApiService {
     return ['ALL', ...list];
   }
 }
-
