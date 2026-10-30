@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color darkBackground = Color(0xFF090E15);
-  static const Color darkSurface = Color(0xFF0F1722);
-  static const Color darkCard = Color(0xFF141E2B);
+  static const Color darkBackground = Color(0xFF0B0C0E);
+  static const Color darkSurface = Color(0xFF141518);
+  static const Color darkCard = Color(0xFF1A1B1F);
   static const Color darkCardBorder = Color(0x14FFFFFF);
 
   static const Color brandGreen = Color(0xFF00E676);
   static const Color brandGreenGlow = Color(0x5900E676);
   static const Color brandGreenSubtle = Color(0x1F00E676);
 
+  // Aliases for compatibility
+  static const Color primaryGreen = brandGreen;
+  static const Color primaryCyan = brandGreen;
+  static const Color accentLiveRed = Color(0xFFFF3366);
+
   static const Color textPrimary = Color(0xFFFFFFFF);
-  static const Color textSecondary = Color(0xFF8FA3B8);
-  static const Color textMuted = Color(0xFF5A6E82);
+  static const Color textSecondary = Color(0xFF9E9EA7);
+  static const Color textMuted = Color(0xFF63636E);
 
   static ThemeData get darkTheme {
     return ThemeData(

@@ -9,16 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090e15;
-      --bg-surface: #0f1722;
-      --card-bg: #141e2b;
-      --card-hover: #1a2738;
+      --bg: #0b0c0e;
+      --bg-surface: #141518;
+      --card-bg: #1a1b1f;
+      --card-hover: #23252b;
       --brand-green: #00e676;
       --brand-green-glow: rgba(0, 230, 118, 0.35);
-      --brand-green-subtle: rgba(0, 230, 118, 0.14);
+      --brand-green-subtle: rgba(0, 230, 118, 0.12);
       --text: #ffffff;
-      --text-muted: #8fa3b8;
-      --text-dim: #5a6e82;
+      --text-muted: #9e9ea7;
+      --text-dim: #63636e;
     }
 
     * {
@@ -30,7 +30,7 @@
     }
 
     body {
-      background: #05080c;
+      background: #060608;
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -78,7 +78,7 @@
       height: 870px;
       max-height: 94vh;
       background: var(--bg);
-      border: 9px solid #1f2c3d;
+      border: 9px solid #1e2025;
       border-radius: 50px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255, 255, 255, 0.08);
       position: relative;
@@ -356,56 +356,61 @@
       transform: translateY(-2px);
     }
 
-    /* Top Row: League Tag + Time Pill (No borders) */
-    .card-top-header-row {
+    /* Top Centered Time Header (No League Box) */
+    .card-time-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       margin-bottom: 12px;
-    }
-
-    .league-chip {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--brand-green);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
     }
 
     .time-chip-badge {
       background: var(--brand-green-subtle);
-      border: none; /* No border */
+      border: none !important;
+      outline: none !important;
       color: var(--brand-green);
-      padding: 3px 10px;
-      border-radius: 12px;
+      padding: 4px 14px;
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    .match-card-main-content {
-      display: flex;
+    /* 3-Column Grid: Left Team, Center VS, Right Team (Guaranteed NO overlap) */
+    .match-grid-container {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
+      gap: 10px;
       width: 100%;
     }
 
-    /* Team Box */
-    .team-left-box {
-      flex: 1;
+    .team-side {
       display: flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
+      overflow: hidden;
     }
 
-    /* Logo Background with NO BORDER as requested */
+    .team-side.team-left {
+      justify-content: flex-start;
+    }
+
+    .team-side.team-right {
+      justify-content: flex-end;
+    }
+
+    /* Logo Background with NO BORDER */
     .team-logo-wrapper {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08); /* Clean circular bg */
-      border: none !important; /* No border on logo bg */
+      background: rgba(255, 255, 255, 0.08);
+      border: none !important;
       outline: none !important;
       display: flex;
       align-items: center;
@@ -421,13 +426,6 @@
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
 
-    .team-text-block {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      flex: 1;
-    }
-
     .team-name-text {
       font-size: 13px;
       font-weight: 700;
@@ -435,52 +433,37 @@
       line-height: 1.25;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis; /* Single line with ellipsis */
-      display: block;
+      text-overflow: ellipsis;
+      min-width: 0;
+      flex: 1;
     }
 
-    .team-sub-role {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .team-side.team-right .team-name-text {
+      text-align: right;
     }
 
     /* Center VS badge: No border */
     .center-vs-box {
-      padding: 0 12px;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      padding: 0 4px;
     }
 
     .center-vs-text {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: none; /* No border */
+      background: rgba(255, 255, 255, 0.06);
+      border: none !important;
+      outline: none !important;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 10px;
       font-weight: 800;
-      color: var(--text-muted);
-    }
-
-    /* Right Team */
-    .team-right-box {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      text-align: right;
-      min-width: 0;
-    }
-
-    .team-right-box .team-text-block {
-      align-items: flex-end;
+      color: var(--brand-green);
     }
 
     /* Live Stream Slide-up Modal */
@@ -811,35 +794,29 @@
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
             
-            <!-- Top Row: League Tag on Left, Time Badge on Right (No borders) -->
-            <div class="card-top-header-row">
-              <span class="league-chip">${leagueName}</span>
+            <!-- Centered Time Badge (League Box removed as requested) -->
+            <div class="card-time-header">
               <span class="time-chip-badge">⏱ ${timeDisplay}</span>
             </div>
             
-            <div class="match-card-main-content">
-              <!-- Left Team: Logo with circular background (NO BORDER) + Single line name with ellipsis -->
-              <div class="team-left-box">
+            <!-- Guaranteed Non-Overlapping 3-Column Grid (Home/Away removed) -->
+            <div class="match-grid-container">
+              <!-- Left Team: Logo + Single line name with ellipsis -->
+              <div class="team-side team-left">
                 <div class="team-logo-wrapper">
                   <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
                 </div>
-                <div class="team-text-block">
-                  <div class="team-name-text" title="${m.Team1}">${m.Team1}</div>
-                  <div class="team-sub-role">Home</div>
-                </div>
+                <span class="team-name-text" title="${m.Team1}">${m.Team1}</span>
               </div>
 
-              <!-- Center VS (No border) -->
+              <!-- Center VS -->
               <div class="center-vs-box">
                 <div class="center-vs-text">VS</div>
               </div>
 
-              <!-- Right Team: Single line name with ellipsis + Logo with circular background (NO BORDER) -->
-              <div class="team-right-box">
-                <div class="team-text-block">
-                  <div class="team-name-text" title="${m.Team2}">${m.Team2}</div>
-                  <div class="team-sub-role">Away</div>
-                </div>
+              <!-- Right Team: Single line name with ellipsis + Logo -->
+              <div class="team-side team-right">
+                <span class="team-name-text" title="${m.Team2}">${m.Team2}</span>
                 <div class="team-logo-wrapper">
                   <img class="team-badge-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
                 </div>

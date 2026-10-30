@@ -82,134 +82,90 @@ class MatchCard extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             child: Column(
               children: [
-                // Top Row: League Name on Left + Time Pill on Right
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      leagueName.toUpperCase(),
+                // Top Centered Time Badge (League Box removed as requested)
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppTheme.brandGreenSubtle,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      '⏱ $timeStr',
                       style: const TextStyle(
                         color: AppTheme.brandGreen,
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: AppTheme.brandGreenSubtle,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        '⏱ $timeStr',
-                        style: const TextStyle(
-                          color: AppTheme.brandGreen,
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 12),
 
-                // Matchup Row
+                // Matchup Row (Home/Away removed, guaranteed non-overlapping)
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Left: Logo (with BG) + Team 1 (Single line with ellipsis)
+                    // Left Team: Logo + Single line name with ellipsis
                     Expanded(
                       child: Row(
                         children: [
                           _buildTeamLogo(match.team1Logo, match.team1),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 8),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  match.team1,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  'Home',
-                                  style: TextStyle(
-                                    color: AppTheme.textSecondary,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              match.team1,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
                     ),
 
-                    // Center VS
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.05),
-                          border: Border.all(color: Colors.white.withOpacity(0.08)),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'VS',
-                            style: TextStyle(
-                              color: AppTheme.textSecondary,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
+                    // Center VS (No border)
+                    Container(
+                      width: 28,
+                      height: 28,
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white.withOpacity(0.06),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'VS',
+                        style: TextStyle(
+                          color: AppTheme.brandGreen,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
 
-                    // Right: Team 2 (Single line with ellipsis) + Logo (with BG)
+                    // Right Team: Single line name with ellipsis + Logo
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  match.team2,
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 2),
-                                const Text(
-                                  'Away',
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    color: AppTheme.textSecondary,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              match.team2,
+                              textAlign: TextAlign.end,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 8),
                           _buildTeamLogo(match.team2Logo, match.team2),
                         ],
                       ),
