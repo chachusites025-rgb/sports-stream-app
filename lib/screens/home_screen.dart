@@ -97,24 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _filteredMatches = list;
   }
 
-  void _nextSport() {
-    final idx = _sportsList.indexOf(_selectedCategory);
-    final nextIdx = (idx + 1) % _sportsList.length;
-    setState(() {
-      _selectedCategory = _sportsList[nextIdx];
-      _applyFilters();
-    });
-  }
-
-  void _prevSport() {
-    final idx = _sportsList.indexOf(_selectedCategory);
-    final prevIdx = (idx - 1 + _sportsList.length) % _sportsList.length;
-    setState(() {
-      _selectedCategory = _sportsList[prevIdx];
-      _applyFilters();
-    });
-  }
-
   Widget _buildTopHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -221,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
         itemCount: _sportsList.length,
         itemBuilder: (context, i) {
           final s = _sportsList[i];
@@ -287,11 +269,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildSearchBox() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const EdgeInsets.fromLTRB(14, 4, 14, 12),
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFF1C1419),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 14),
         child: TextField(
@@ -314,59 +303,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildLeagueNavHeader() {
-    final title = _selectedCategory == 'ALL'
-        ? 'Live Matches & Streams'
-        : _selectedCategory.replaceAll('-', ' ');
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 14, 18, 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              letterSpacing: -0.3,
-            ),
-          ),
-          Row(
-            children: [
-              GestureDetector(
-                onTap: _prevSport,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: const BoxDecoration(
-                    color: AppTheme.darkCard,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.chevron_left_rounded, color: AppTheme.textSecondary, size: 18),
-                ),
-              ),
-              const SizedBox(width: 6),
-              GestureDetector(
-                onTap: _nextSport,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: const BoxDecoration(
-                    color: AppTheme.darkCard,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.chevron_right_rounded, color: AppTheme.textSecondary, size: 18),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -380,7 +316,6 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(child: _buildTopHeader()),
               SliverToBoxAdapter(child: _buildSportsRow()),
               SliverToBoxAdapter(child: _buildSearchBox()),
-              SliverToBoxAdapter(child: _buildLeagueNavHeader()),
               if (_isLoading && _allMatches.isEmpty)
                 const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator(color: AppTheme.accentRed)),

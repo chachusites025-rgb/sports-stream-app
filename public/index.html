@@ -118,7 +118,7 @@
     /* Phone Notch / Dynamic Island */
     .status-bar {
       height: 48px;
-      padding: 12px 24px 0 24px;
+      padding: 12px 20px 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -147,12 +147,12 @@
       font-size: 12px;
     }
 
-    /* Scrollable App Screen Content */
+    /* Scrollable App Screen Content: Wider with less side padding */
     .screen-scroll {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 10px 18px 80px 18px;
+      padding: 10px 12px 80px 12px;
       scrollbar-width: none;
     }
     .screen-scroll::-webkit-scrollbar { display: none; }
@@ -163,7 +163,8 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      padding: 0 4px;
     }
 
     .profile-info {
@@ -247,8 +248,8 @@
       align-items: center;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 18px;
+      padding: 0 4px 6px 4px;
+      margin-bottom: 16px;
       scrollbar-width: none;
     }
     .sports-row::-webkit-scrollbar { display: none; }
@@ -282,18 +283,26 @@
       justify-content: center;
     }
 
-    /* Search Box with SVG Icon */
+    /* Search Box with Premium Luxury Glow Shadow on Focus */
     .search-bar-box {
       width: 100%;
       background: #1c1419;
-      border: none;
-      border-radius: 16px;
+      border: 1px solid transparent;
+      border-radius: 12px;
       padding: 12px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 22px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .search-bar-box:focus-within {
+      background: #241a21;
+      border-color: rgba(225, 43, 76, 0.6);
+      box-shadow: 0 0 0 3px rgba(225, 43, 76, 0.25), 0 8px 24px rgba(225, 43, 76, 0.2), 0 2px 6px rgba(0,0,0,0.4);
+      transform: translateY(-1px);
     }
 
     .search-svg-icon {
@@ -301,6 +310,11 @@
       height: 18px;
       stroke: var(--text-muted);
       flex-shrink: 0;
+      transition: stroke 0.2s;
+    }
+
+    .search-bar-box:focus-within .search-svg-icon {
+      stroke: var(--accent-red);
     }
 
     .search-bar-box input {
@@ -317,90 +331,46 @@
       font-size: 13px;
     }
 
-    /* League Section Header with Clean Arrow Navigation */
-    .league-nav-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-
-    .league-title-text {
-      font-size: 17px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.3px;
-    }
-
-    .arrow-controls {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .arrow-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #23191f;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .arrow-btn:hover {
-      background: var(--accent-red);
-      color: #fff;
-    }
-
-    .arrow-btn svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-    }
-
-    /* Matches List */
+    /* Matches List: Full Width */
     .matches-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
+      width: 100%;
     }
 
-    /* Match Item Card (Exact design matching Image 2) */
+    /* Match Item Card: Wider width, exact 8px radius, no border */
     .match-item-card {
+      width: 100%;
       background: var(--card-bg);
       border: none;
-      border-radius: 24px;
-      padding: 0 16px 16px 16px;
+      border-radius: 8px; /* Exact 8px radius as requested */
+      padding: 0 14px 14px 14px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: all 0.2s ease;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
     }
 
     .match-item-card:hover {
       transform: translateY(-2px);
       background: #2a1f26;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.65);
     }
 
     /* Top Notch Header: Time sits in a smooth recessed tab */
     .card-top-notch-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .card-top-notch {
       background: var(--card-notch);
-      padding: 6px 18px;
-      border-bottom-left-radius: 14px;
-      border-bottom-right-radius: 14px;
+      padding: 5px 16px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
       font-size: 11px;
       font-weight: 700;
       color: #fff;
@@ -412,27 +382,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
     }
 
-    /* Left Team: Logo on left, Team Name & Home next to it */
+    /* Left Team: Logo on left, Team Name with single-line ellipsis (e.g. Paris Saint-...) */
     .team-left-box {
       flex: 1;
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0; /* allows text-overflow ellipsis */
     }
 
     .team-badge-logo {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
       flex-shrink: 0;
     }
 
     .team-text-block {
       display: flex;
       flex-direction: column;
+      min-width: 0;
+      flex: 1;
     }
 
     .team-name-text {
@@ -440,8 +414,10 @@
       font-weight: 700;
       color: #fff;
       line-height: 1.2;
-      max-width: 95px;
-      word-break: break-word;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; /* e.g. Paris Saint-... */
+      display: block;
     }
 
     .team-sub-role {
@@ -452,10 +428,11 @@
 
     /* Center VS badge */
     .center-vs-box {
-      padding: 0 8px;
+      padding: 0 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .center-vs-text {
@@ -465,7 +442,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* Right Team: Team Name & Away on left, Logo on right */
+    /* Right Team: Team Name with single-line ellipsis on left, Logo on far right */
     .team-right-box {
       flex: 1;
       display: flex;
@@ -473,6 +450,11 @@
       justify-content: flex-end;
       gap: 10px;
       text-align: right;
+      min-width: 0; /* allows text-overflow ellipsis */
+    }
+
+    .team-right-box .team-text-block {
+      align-items: flex-end;
     }
 
     /* Live Stream Slide-up Modal */
@@ -640,7 +622,7 @@
         </div>
       </div>
 
-      <!-- Search Box with clean SVG Icon -->
+      <!-- Search Box with Premium Glow Shadow and clean SVG Icon -->
       <div class="search-bar-box">
         <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
@@ -649,24 +631,7 @@
         <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
       </div>
 
-      <!-- League Header with Clean Left/Right Navigation Arrows -->
-      <div class="league-nav-header">
-        <div class="league-title-text" id="sectionLeagueTitle">Live Matches & Streams</div>
-        <div class="arrow-controls">
-          <button class="arrow-btn" onclick="prevSport()" title="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button class="arrow-btn" onclick="nextSport()" title="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Match Cards List (Exact match from Image 2) -->
+      <!-- Match Cards List (Wider width, 8px radius, no border, single line names with ellipsis) -->
       <div class="matches-list" id="matchesListContainer">
         <div class="loading-pulse">Connecting to live API schedule...</div>
       </div>
@@ -683,7 +648,7 @@
         <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-details">
-        <div style="background: var(--card-bg); padding: 14px; border-radius: 16px;">
+        <div style="background: var(--card-bg); padding: 14px; border-radius: 8px;">
           <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
           <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
         </div>
@@ -776,21 +741,6 @@
       currentSelectedSport = sport;
       renderSportsPills();
       renderMatchCards();
-      
-      const title = sport === 'ALL' ? 'Live Matches & Streams' : sport.replace(/-/g, ' ');
-      document.getElementById('sectionLeagueTitle').innerText = title;
-    }
-
-    function nextSport() {
-      const idx = availableSports.indexOf(currentSelectedSport);
-      const nextIdx = (idx + 1) % availableSports.length;
-      filterSport(availableSports[nextIdx]);
-    }
-
-    function prevSport() {
-      const idx = availableSports.indexOf(currentSelectedSport);
-      const prevIdx = (idx - 1 + availableSports.length) % availableSports.length;
-      filterSport(availableSports[prevIdx]);
     }
 
     function handleSearch(val) {
@@ -836,17 +786,17 @@
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
             
-            <!-- Top Center Recessed Notch: Exact match from Image 2 with Time -->
+            <!-- Top Center Recessed Notch with Time -->
             <div class="card-top-notch-wrap">
               <div class="card-top-notch">${timeDisplay}</div>
             </div>
             
             <div class="match-card-main-content">
-              <!-- Left Team: Logo on left, Team Name & Home beside it -->
+              <!-- Left Team: Logo + Single line name with ellipsis -->
               <div class="team-left-box">
                 <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
                 <div class="team-text-block">
-                  <div class="team-name-text">${m.Team1}</div>
+                  <div class="team-name-text" title="${m.Team1}">${m.Team1}</div>
                   <div class="team-sub-role">Home</div>
                 </div>
               </div>
@@ -856,10 +806,10 @@
                 <div class="center-vs-text">VS</div>
               </div>
 
-              <!-- Right Team: Team Name & Away on left, Logo on right -->
+              <!-- Right Team: Single line name with ellipsis + Logo -->
               <div class="team-right-box">
                 <div class="team-text-block">
-                  <div class="team-name-text">${m.Team2}</div>
+                  <div class="team-name-text" title="${m.Team2}">${m.Team2}</div>
                   <div class="team-sub-role">Away</div>
                 </div>
                 <img class="team-badge-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
