@@ -11,9 +11,8 @@
     :root {
       --bg: #140e13;
       --bg-dark: #0e0a0d;
-      --card-bg: #231b20;
-      --card-border: #32262e;
-      --card-hover: #2b2127;
+      --card-bg: #23191f;
+      --card-notch: #160f14;
       --accent-red: #e12b4c;
       --accent-pink: #ff3b5c;
       --live-green: #22c55e;
@@ -56,7 +55,7 @@
 
     .toolbar-pill {
       background: #1c151a;
-      border: 1px solid var(--card-border);
+      border: 1px solid #32262e;
       padding: 6px 12px;
       border-radius: 20px;
       cursor: pointer;
@@ -214,8 +213,8 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #231b20;
-      border: 1px solid var(--card-border);
+      background: #23191f;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -227,8 +226,8 @@
     }
 
     .icon-btn:hover {
-      background: #2d2229;
-      border-color: var(--accent-red);
+      background: #2d2027;
+      transform: scale(1.05);
     }
 
     .badge-dot {
@@ -249,7 +248,7 @@
       gap: 10px;
       overflow-x: auto;
       padding-bottom: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       scrollbar-width: none;
     }
     .sports-row::-webkit-scrollbar { display: none; }
@@ -258,8 +257,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #231b20;
-      border: 1px solid var(--card-border);
+      background: #23191f;
+      border: none;
       padding: 7px 16px;
       border-radius: 25px;
       font-size: 13px;
@@ -272,300 +271,208 @@
 
     .sport-pill.active {
       background: var(--accent-red);
-      border-color: var(--accent-red);
       color: #fff;
       box-shadow: 0 4px 15px rgba(225, 43, 76, 0.4);
     }
 
     .sport-pill .sport-icon {
-      font-size: 16px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Featured Hero Live Match Card */
-    .featured-card {
-      background: linear-gradient(170deg, #281f25 0%, #1c151a 100%);
-      border: 1px solid var(--card-border);
-      border-radius: 26px;
-      padding: 16px 20px 20px 20px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
-    }
-
-    .featured-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(225, 43, 76, 0.5);
-    }
-
-    .featured-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .featured-top .league-badge {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .featured-top .league-logo-img {
-      height: 22px;
-      max-width: 60px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    }
-
-    .featured-top .league-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.5px;
-    }
-
-    .featured-body {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-
-    .featured-team {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 6px;
-    }
-
-    .featured-team img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-    }
-
-    .featured-team .name {
-      font-size: 13px;
-      font-weight: 700;
-      max-width: 100px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .featured-team .role {
-      font-size: 11px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .featured-score-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      padding: 0 10px;
-    }
-
-    .featured-score {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #fff;
-    }
-
-    .live-minute-pill {
-      background: rgba(34, 197, 94, 0.18);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      color: var(--live-green);
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* Carousel indicator dots */
-    .carousel-dots {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin: 10px 0 16px 0;
-    }
-
-    .carousel-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #33272e;
-    }
-
-    .carousel-dot.active {
-      width: 22px;
-      height: 6px;
-      border-radius: 10px;
-      background: var(--accent-red);
-    }
-
-    /* Search Box above matches list */
-    .matches-search-container {
-      margin-bottom: 14px;
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .matches-search-container input {
+    /* Search Box with SVG Icon */
+    .search-bar-box {
       width: 100%;
-      background: #231b20;
-      border: 1px solid var(--card-border);
+      background: #1c1419;
+      border: none;
       border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .search-svg-icon {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .search-bar-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
       color: #fff;
-      padding: 12px 14px 12px 40px;
       font-size: 13px;
       outline: none;
-      transition: all 0.2s;
     }
 
-    .matches-search-container input:focus {
-      border-color: var(--accent-red);
-      background: #2a2027;
-      box-shadow: 0 0 12px rgba(225, 43, 76, 0.25);
+    .search-bar-box input::placeholder {
+      color: var(--text-dim);
+      font-size: 13px;
     }
 
-    .matches-search-container .search-icon {
-      position: absolute;
-      left: 14px;
-      color: var(--text-muted);
-      font-size: 14px;
+    /* League Section Header with Clean Arrow Navigation */
+    .league-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
     }
 
-    /* Section Title */
-    .section-title {
+    .league-title-text {
       font-size: 17px;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 12px;
       letter-spacing: -0.3px;
     }
 
-    /* Match Cards List (Exact match from screenshot) */
+    .arrow-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .arrow-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #23191f;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .arrow-btn:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .arrow-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+    }
+
+    /* Matches List */
     .matches-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
+    /* Match Item Card (Exact design matching Image 2) */
     .match-item-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 12px 16px 14px 16px;
+      border: none;
+      border-radius: 24px;
+      padding: 0 16px 16px 16px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: all 0.2s ease;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }
 
     .match-item-card:hover {
       transform: translateY(-2px);
-      border-color: rgba(225, 43, 76, 0.4);
-      background: var(--card-hover);
+      background: #2a1f26;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
     }
 
-    /* Top Center: Time Badge (Replaced "Next Match" and date removed) */
-    .match-item-header-time {
+    /* Top Notch Header: Time sits in a smooth recessed tab */
+    .card-top-notch-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .match-time-chip {
-      background: rgba(255, 59, 92, 0.14);
-      border: 1px solid rgba(255, 59, 92, 0.35);
-      color: var(--accent-pink);
-      padding: 3px 12px;
-      border-radius: 12px;
+    .card-top-notch {
+      background: var(--card-notch);
+      padding: 6px 18px;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .match-item-content {
+    .match-card-main-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    /* Left Team: Logo on top, small clean name underneath */
-    .team-col-box {
+    /* Left Team: Logo on left, Team Name & Home next to it */
+    .team-left-box {
       flex: 1;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      gap: 5px;
+      gap: 10px;
     }
 
-    .team-item-logo {
-      width: 44px;
-      height: 44px;
+    .team-badge-logo {
+      width: 34px;
+      height: 34px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+      flex-shrink: 0;
     }
 
-    .team-item-title {
-      font-size: 12px;
+    .team-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-name-text {
+      font-size: 13px;
       font-weight: 700;
       color: #fff;
-      max-width: 120px;
       line-height: 1.2;
+      max-width: 95px;
       word-break: break-word;
     }
 
-    .team-item-sub {
+    .team-sub-role {
       font-size: 10px;
       color: var(--text-muted);
+      margin-top: 2px;
     }
 
     /* Center VS badge */
-    .match-center-vs {
+    .center-vs-box {
+      padding: 0 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 0 10px;
     }
 
-    .vs-pill {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
+    .center-vs-text {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* Right Team: Team Name & Away on left, Logo on right */
+    .team-right-box {
+      flex: 1;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 900;
-      color: var(--text-muted);
+      justify-content: flex-end;
+      gap: 10px;
+      text-align: right;
     }
 
     /* Live Stream Slide-up Modal */
@@ -597,7 +504,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid #33272e;
       background: var(--card-bg);
     }
 
@@ -664,7 +571,7 @@
 
     .modal-btn.secondary {
       background: #2b2027;
-      border: 1px solid var(--card-border);
+      border: 1px solid #33272e;
       color: var(--text-muted);
     }
 
@@ -733,59 +640,33 @@
         </div>
       </div>
 
-      <!-- Featured Big Live Match Banner (With Real League Logo) -->
-      <div class="featured-card" id="featuredMatchCard" onclick="openFeaturedStream()">
-        <div class="featured-top">
-          <span>Match</span>
-          <div class="league-badge">
-            <img id="featuredLeagueLogo" class="league-logo-img" src="" alt="League">
-            <div class="league-name" id="featuredLeague">Loading...</div>
-          </div>
-          <span style="color: var(--accent-pink);">Live</span>
-        </div>
-
-        <div class="featured-body">
-          <!-- Home Team -->
-          <div class="featured-team">
-            <img id="featuredTeam1Logo" src="https://falconembeds.lol/falconembeds-default-live-games.png" alt="Team 1" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
-            <div class="name" id="featuredTeam1Name">Team 1</div>
-            <div class="role">🏠 Home</div>
-          </div>
-
-          <!-- Score / Live Time -->
-          <div class="featured-score-box">
-            <div class="featured-score" id="featuredScore">LIVE</div>
-            <div class="live-minute-pill">
-              <span>▶</span> <span id="featuredMinute">LIVE STREAM</span>
-            </div>
-          </div>
-
-          <!-- Away Team -->
-          <div class="featured-team">
-            <img id="featuredTeam2Logo" src="https://falconembeds.lol/falconembeds-default-live-games.png" alt="Team 2" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
-            <div class="name" id="featuredTeam2Name">Team 2</div>
-            <div class="role">Away</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carousel Pagination Dots -->
-      <div class="carousel-dots">
-        <div class="carousel-dot active"></div>
-        <div class="carousel-dot"></div>
-        <div class="carousel-dot"></div>
-      </div>
-
-      <!-- Search Box right above matches -->
-      <div class="matches-search-container">
-        <span class="search-icon">🔍</span>
+      <!-- Search Box with clean SVG Icon -->
+      <div class="search-bar-box">
+        <svg class="search-svg-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
         <input type="text" id="searchInput" placeholder="Search teams, leagues, sports..." oninput="handleSearch(this.value)">
       </div>
 
-      <!-- Section Title -->
-      <div class="section-title" id="sectionLeagueTitle">Live Matches & Streams</div>
+      <!-- League Header with Clean Left/Right Navigation Arrows -->
+      <div class="league-nav-header">
+        <div class="league-title-text" id="sectionLeagueTitle">Live Matches & Streams</div>
+        <div class="arrow-controls">
+          <button class="arrow-btn" onclick="prevSport()" title="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="arrow-btn" onclick="nextSport()" title="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-      <!-- Match Cards List -->
+      <!-- Match Cards List (Exact match from Image 2) -->
       <div class="matches-list" id="matchesListContainer">
         <div class="loading-pulse">Connecting to live API schedule...</div>
       </div>
@@ -802,7 +683,7 @@
         <iframe id="streamIframe" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
       <div class="modal-details">
-        <div style="background: var(--card-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--card-border);">
+        <div style="background: var(--card-bg); padding: 14px; border-radius: 16px;">
           <div style="font-weight: 700; font-size: 14px; margin-bottom: 4px;" id="modalMatchTeams">Match Stream</div>
           <div style="font-size: 12px; color: var(--text-muted);" id="modalMatchInfo">Live Streaming</div>
         </div>
@@ -819,15 +700,14 @@
   <script>
     let allMatches = [];
     let currentSelectedSport = 'ALL';
+    let availableSports = ['ALL'];
     let searchQuery = '';
-    let featuredMatch = null;
     let activeStreamUrl = '';
 
     async function fetchLiveSchedule() {
       try {
         let rawData = null;
 
-        // Try proxy first then direct
         try {
           const res = await fetch('/api/schedule');
           if (res.ok) {
@@ -845,11 +725,6 @@
         allMatches = Array.isArray(rawData) ? rawData : (rawData.value || []);
         console.log('Loaded matches:', allMatches.length);
 
-        if (allMatches.length > 0) {
-          featuredMatch = allMatches[0];
-          updateFeaturedCard(featuredMatch);
-        }
-
         renderSportsPills();
         renderMatchCards();
       } catch (e) {
@@ -863,45 +738,13 @@
       }
     }
 
-    function updateFeaturedCard(m) {
-      if (!m) return;
-      document.getElementById('featuredLeague').innerText = m.League || 'Live League';
-      
-      const leagueLogo = m.LeagueLogo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
-      const leagueImg = document.getElementById('featuredLeagueLogo');
-      leagueImg.src = leagueLogo;
-      leagueImg.style.display = leagueLogo ? 'block' : 'none';
-
-      document.getElementById('featuredTeam1Name').innerText = m.Team1 || 'Team 1';
-      document.getElementById('featuredTeam2Name').innerText = m.Team2 || 'Team 2';
-      
-      const logo1 = m.Team1Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
-      const logo2 = m.Team2Logo || 'https://falconembeds.lol/falconembeds-default-live-games.png';
-      document.getElementById('featuredTeam1Logo').src = logo1;
-      document.getElementById('featuredTeam2Logo').src = logo2;
-
-      document.getElementById('featuredScore').innerText = m.Time || 'LIVE';
-      document.getElementById('featuredMinute').innerText = '▶ LIVE STREAM';
-    }
-
-    function openFeaturedStream() {
-      if (featuredMatch && featuredMatch.IframeURL) {
-        openStreamModal(
-          featuredMatch.IframeURL,
-          `${featuredMatch.Team1} vs ${featuredMatch.Team2}`,
-          featuredMatch.League,
-          featuredMatch.Time
-        );
-      }
-    }
-
     function renderSportsPills() {
       const sports = new Set();
       allMatches.forEach(m => {
         if (m.Sport) sports.add(m.Sport.toUpperCase());
       });
 
-      const sportList = ['ALL', ...Array.from(sports)];
+      availableSports = ['ALL', ...Array.from(sports)];
       const icons = {
         'ALL': '🏆',
         'LALIGA': '⚽',
@@ -915,7 +758,7 @@
       };
 
       const container = document.getElementById('sportsSelector');
-      container.innerHTML = sportList.map(s => {
+      container.innerHTML = availableSports.map(s => {
         const icon = icons[s] || '⚡';
         const isSelected = s === currentSelectedSport;
         const name = s === 'ALL' ? 'All Sports' : s.replace(/-/g, ' ');
@@ -938,6 +781,18 @@
       document.getElementById('sectionLeagueTitle').innerText = title;
     }
 
+    function nextSport() {
+      const idx = availableSports.indexOf(currentSelectedSport);
+      const nextIdx = (idx + 1) % availableSports.length;
+      filterSport(availableSports[nextIdx]);
+    }
+
+    function prevSport() {
+      const idx = availableSports.indexOf(currentSelectedSport);
+      const prevIdx = (idx - 1 + availableSports.length) % availableSports.length;
+      filterSport(availableSports[prevIdx]);
+    }
+
     function handleSearch(val) {
       searchQuery = val.toLowerCase().trim();
       renderMatchCards();
@@ -949,11 +804,6 @@
       // Filter by Sport
       if (currentSelectedSport !== 'ALL') {
         list = list.filter(m => m.Sport && m.Sport.toUpperCase() === currentSelectedSport);
-      }
-
-      // Do not repeat the featured match in the list below when viewing ALL sports without search
-      if (currentSelectedSport === 'ALL' && !searchQuery && list.length > 1) {
-        list = list.slice(1);
       }
 
       // Filter by search query
@@ -986,29 +836,33 @@
         return `
           <div class="match-item-card" onclick="openStreamModal('${m.IframeURL}', '${titleSafe}', '${m.League}', '${m.Time}')">
             
-            <!-- Top Center Time Badge (Date Removed & Replaces Next Match) -->
-            <div class="match-item-header-time">
-              <span class="match-time-chip">⏱ ${timeDisplay}</span>
+            <!-- Top Center Recessed Notch: Exact match from Image 2 with Time -->
+            <div class="card-top-notch-wrap">
+              <div class="card-top-notch">${timeDisplay}</div>
             </div>
             
-            <div class="match-item-content">
-              <!-- Left Team: Logo with clean name underneath -->
-              <div class="team-col-box">
-                <img class="team-item-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
-                <div class="team-item-title">${m.Team1}</div>
-                <div class="team-item-sub">Home</div>
+            <div class="match-card-main-content">
+              <!-- Left Team: Logo on left, Team Name & Home beside it -->
+              <div class="team-left-box">
+                <img class="team-badge-logo" src="${team1Logo}" alt="${m.Team1}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
+                <div class="team-text-block">
+                  <div class="team-name-text">${m.Team1}</div>
+                  <div class="team-sub-role">Home</div>
+                </div>
               </div>
 
-              <!-- Center VS Circle -->
-              <div class="match-center-vs">
-                <div class="vs-pill">VS</div>
+              <!-- Center VS -->
+              <div class="center-vs-box">
+                <div class="center-vs-text">VS</div>
               </div>
 
-              <!-- Right Team: Logo with clean name underneath -->
-              <div class="team-col-box">
-                <img class="team-item-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
-                <div class="team-item-title">${m.Team2}</div>
-                <div class="team-item-sub">Away</div>
+              <!-- Right Team: Team Name & Away on left, Logo on right -->
+              <div class="team-right-box">
+                <div class="team-text-block">
+                  <div class="team-name-text">${m.Team2}</div>
+                  <div class="team-sub-role">Away</div>
+                </div>
+                <img class="team-badge-logo" src="${team2Logo}" alt="${m.Team2}" onerror="this.src='https://falconembeds.lol/falconembeds-default-live-games.png'">
               </div>
             </div>
           </div>
