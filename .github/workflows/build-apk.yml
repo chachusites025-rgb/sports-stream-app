@@ -29,16 +29,12 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Regenerate Android Platform Wrappers
+      - name: Create Clean Android Platform
         run: |
           flutter create --org com.gamezquest --project-name sports_stream_app .
-          # Remove default counter widget test if generated to avoid build check failure
           rm -rf test/
-          # Ensure Android permissions in AndroidManifest.xml
-          if ! grep -q "android.permission.INTERNET" android/app/src/main/AndroidManifest.xml; then
-            sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>' android/app/src/main/AndroidManifest.xml
-          fi
-          # Ensure cleartext traffic and hardware acceleration
+          # Set Android permissions and configurations
+          sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>\n    <uses-permission android:name="android.permission.WAKE_LOCK"/>' android/app/src/main/AndroidManifest.xml
           sed -i 's/<application/<application android:usesCleartextTraffic="true" android:hardwareAccelerated="true"/' android/app/src/main/AndroidManifest.xml
 
       - name: Install Dependencies
